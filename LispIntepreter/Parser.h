@@ -1,5 +1,6 @@
 #ifndef _LISP_PARSER_H_
 #define _LISP_PARSER_H_
+
 #include <vector>
 #include <map>
 #include <string>
@@ -11,7 +12,8 @@ enum class ValueType {
 	OPERATOR,
 	EXPRESSION,
 	CONSTANT,
-	STRING
+	STRING,
+    EMPTY
 };
 
 class LispValue {
@@ -28,11 +30,17 @@ public:
 	~Parser();
 
 	void Parse(const char * str);
+    enum{
+        PARSE_OK
+    };
 
 private:
 	const char * _code;
 	size_t _pos;
+    std::map<std::string, LispValue> _lookupTable;
 	void parseWhiteSpace();
+    int parseToken();
+    void appendElements(LispValue & op);
 };
 
 #endif 
