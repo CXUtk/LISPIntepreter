@@ -11,7 +11,7 @@ int main(int argc, char ** argv) {
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
 	char buffer1[] = "define x 3";
- 	char buffer[] = "(* (+ 2 (* 4 6)) (+ 3 5 7))";
+ 	char buffer[] = "/ (* (+ 2 (* 4 6)) (+ 3 5 7)) 9";
 	Parser parser;
 	parser.Parse(buffer);
 	getchar();

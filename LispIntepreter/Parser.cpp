@@ -1,9 +1,9 @@
 #include "Parser.h"
 
 
-
 Parser::Parser() : _pos(0), _code(nullptr)
 {
+    init();
 	_root = new LispNode;
 }
 
@@ -62,7 +62,7 @@ int Parser::parseSymbol(LispNode * node)
 	while (isalpha(_code[_pos])) {
 		_pos++;
 	}
-	// ½«·ûºÅÒÔ¼°¶¨Òå´æÈëÈ«¾Ö·ûºÅ±íÖÐ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½Ö·ï¿½ï¿½Å±ï¿½ï¿½ï¿½
 	std::string str(_code + start, _pos - start);
 	if (str == "define") {
 		parseWhiteSpace();
@@ -153,39 +153,23 @@ int Parser::_eval(LispNode * node)
 		return node->v.value;
 	}
 	case ValueType::M_OPERATOR: {
-		if (node->v.value == '+') {
-			int sum = 0;
-			for (int i = 0; i < node->children.size(); i++) {
-				sum += _eval(node->children[i]);
-			}
-			return sum;
-		}
-		else if (node->v.value == '-') {
-			int num = node->children[0]->v.value;
-			for (int i = 1; i < node->children.size(); i++) {
-				num -= _eval(node->children[i]);
-			}
-			return num;
-		}
-		else if (node->v.value == '*') {
-			int sum = 1;
-			for (int i = 0; i < node->children.size(); i++) {
-				sum *= _eval(node->children[i]);
-			}
-			return sum;
-		}
-		else if (node->v.value == '/') {
-			int num = node->children[0]->v.value;
-			for (int i = 1; i < node->children.size(); i++) {
-				num /= _eval(node->children[i]);
-			}
-			return num;
-		}
-		break;
+        int num = _eval(node->children[0]);
+        for (int i = 1; i < node->children.size(); i++) {
+            num = (this->*opFuncMap[node->v.value])(num, _eval(node->children[i]));
+        }
+        return num;
 	}
 	default:
 		break;
 	}
+}
+
+void Parser::init() {
+    opFuncMap['+'] = &Parser::op_add;
+    opFuncMap['-'] = &Parser::op_minus;
+    opFuncMap['*'] = &Parser::op_multip;
+    opFuncMap['/'] = &Parser::op_div;
+    opFuncMap['%'] = &Parser::op_mod;
 }
 
 bool isWhiteSpace(char c)
