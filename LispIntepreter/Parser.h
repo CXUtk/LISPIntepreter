@@ -16,17 +16,29 @@ enum class ValueType {
 	EXPRESSION,
 	// Rule: REG -> (-)?[0-9]+(.)?[0-9]+
 	CONSTANT,
+	// Rule: \w+.*\s
+	SYMBOL,
+	// Rule: \".*\"
 	STRING,
+	// Rule: define (<symbol> [<expression>]) (<expression>)\n <expression>
+	FUNCTION,
     EMPTY
 };
 
 class LispNode {
 public:
 	ValueType type;
-	int value;
+	union vl {
+		int value;
+		char * content;
+		vl() {
+			value = 0;
+			content = 0;
+		}
+	} v;
 	std::vector<LispNode *> children;
 
-	LispNode() : value(0), type(ValueType::EMPTY){}
+	LispNode() : type(ValueType::EMPTY){}
 };
 
 class Parser
@@ -40,6 +52,7 @@ public:
 	enum {
 		PARSE_OK,
 		PARSE_NUMBER_ERROR,
+		PARSE_UNKNOWN_SYMBOL,
 		PARSE_END
     };
 
@@ -49,10 +62,13 @@ private:
     std::map<std::string, LispNode> _lookupTable;
 	LispNode * _root;
 	void parseWhiteSpace();
+	int parseNumber(LispNode * node);
+	int parseSymbol(LispNode * node);
     int parseToken(LispNode * node);
-    void appendElements(LispNode & op);
-	void _eval(LispNode * node);
+	int _eval(LispNode * node);
 };
+
+bool isWhiteSpace(char c);
 
 #endif 
 
