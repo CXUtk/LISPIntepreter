@@ -9,18 +9,24 @@
 
 
 enum class ValueType {
+	// Rule: (<op> <number> <number> ...)
+	M_OPERATOR,
+	// Rule: (<op> <number>)
 	OPERATOR,
 	EXPRESSION,
+	// Rule: REG -> (-)?[0-9]+(.)?[0-9]+
 	CONSTANT,
 	STRING,
     EMPTY
 };
 
-class LispValue {
+class LispNode {
 public:
 	ValueType type;
 	int value;
-	std::vector<LispValue *> children;
+	std::vector<LispNode *> children;
+
+	LispNode() : value(0), type(ValueType::EMPTY){}
 };
 
 class Parser
@@ -30,17 +36,22 @@ public:
 	~Parser();
 
 	void Parse(const char * str);
-    enum{
-        PARSE_OK
+	void Eval();
+	enum {
+		PARSE_OK,
+		PARSE_NUMBER_ERROR,
+		PARSE_END
     };
 
 private:
 	const char * _code;
 	size_t _pos;
-    std::map<std::string, LispValue> _lookupTable;
+    std::map<std::string, LispNode> _lookupTable;
+	LispNode * _root;
 	void parseWhiteSpace();
-    int parseToken();
-    void appendElements(LispValue & op);
+    int parseToken(LispNode * node);
+    void appendElements(LispNode & op);
+	void _eval(LispNode * node);
 };
 
 #endif 
