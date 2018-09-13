@@ -20,9 +20,14 @@ void Parser::Parse(const char * str)
 	_code = str;
 	_pos = 0;
 	parseWhiteSpace();
-    while(parseToken(_root) == PARSE_OK && _code[_pos] != '\0'){
+    try {
+        if (parseToken(_root) == PARSE_OK) {
+            Eval();
+        }
     }
-	Eval();
+    catch (ParseException& ex){
+        fprintf(stderr, "%s\n", ex.what());
+    }
 
 }
 
@@ -47,13 +52,14 @@ int Parser::parseNumber(LispNode * node)
 	}
 	std::string str(_code + start, _pos - start);
 	try {
-		int num = std::stoi(str, 0, 10);
+		int num = std::stoi(str, nullptr, 10);
 		node->type = ValueType::CONSTANT;
 		node->v.value = num;
 	}
-	catch (std::invalid_argument a) {
-		fprintf(stderr, "[Invalid number] \n%s: %s\n", a.what(), str.c_str());
-		return PARSE_NUMBER_ERROR;
+	catch (std::invalid_argument& a) {
+        throw ParseException("Invalid Number", a.what());
+		// fprintf(stderr, "[Invalid number] \n%s: %s\n", a.what(), str.c_str());
+		// return PARSE_NUMBER_ERROR;
 	}
 	return PARSE_OK;
 }
@@ -62,7 +68,7 @@ int Parser::parseSymbol(LispNode * node)
 {
 	int ret;
 	size_t start = _pos;
-	while (!isWhiteSpace(_code[_pos])) {
+	while (!isWhiteSpace(_code[_pos]) && _code[_pos] != '\0' && _code[_pos] != ')') {
 		_pos++;
 	}
 	std::string str(_code + start, _pos - start);
@@ -103,8 +109,9 @@ int Parser::parseSymbol(LispNode * node)
 				return PARSE_OK;
 			}
 			else {
-				fprintf(stderr, "[Unknown symbol] %s is not defined\n", str.c_str());
-				return PARSE_UNKNOWN_SYMBOL;
+                throw ParseException("Unknown Symbol", strcat(const_cast<char *>(str.c_str()), " is not defined"));
+				//fprintf(stderr, "[Unknown symbol] %s is not defined\n", str.c_str());
+				//return PARSE_UNKNOWN_SYMBOL;
 			}
 
 		}
@@ -226,7 +233,7 @@ int Parser::parseToken(LispNode * node) {
     }
 
 	if (_code[_pos] == '\0') 
-		return PARSE_END;
+		return PARSE_OK;
 	_pos++;
 	parseWhiteSpace();
     return PARSE_OK;
@@ -241,7 +248,7 @@ int Parser::appendElements(LispNode * node)
 {
 	while (_code[_pos] != '\0' && _code[_pos] != ')') {
 		int ret;
-		LispNode * element = new LispNode;
+		auto element = new LispNode;
 		if ((ret = parseToken(element)) != PARSE_OK) return ret;
 		parseWhiteSpace();
 		node->children.push_back(element);
@@ -294,16 +301,17 @@ void Parser::clearRoot()
 
 void Parser::clearNode(LispNode * n)
 {
-	if (n->type == ValueType::EMPTY || n->children.size() == 0) {
+	if (n->type == ValueType::EMPTY || n->children.empty()) {
 		if (n->type == ValueType::SYMBOL) {
 			delete[] n->v.content;
 		}
 		delete n;
 		return;
 	}
-	while (n->children.size() > 0) {
+	while (!n->children.empty()) {
 		for (auto c : n->children) {
 			clearNode(c);
+            n->children.pop_back();
 		}
 	}
 }

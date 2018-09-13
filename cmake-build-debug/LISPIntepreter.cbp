@@ -82,6 +82,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/ParseException.cpp">
+			<Option target="LISPIntepreter"/>
+		</Unit>
+		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/ParseException.h">
+			<Option target="LISPIntepreter"/>
+		</Unit>
 		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/Parser.cpp">
 			<Option target="LISPIntepreter"/>
 		</Unit>

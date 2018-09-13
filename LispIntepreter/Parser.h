@@ -7,6 +7,8 @@
 #include <stack>
 #include <memory>
 
+#include "ParseException.h"
+
 enum OP_CODE {
 	GREATER_EQ = 0x100,
 	LESS_EQ,
@@ -94,8 +96,16 @@ private:
 	int op_add(int a, int b) { return a + b; }
 	int op_minus(int a, int b) { return a - b; }
 	int op_multip(int a, int b) { return a * b; }
-	int op_div(int a, int b) { return a / b; }
-	int op_mod(int a, int b) { return a % b; }
+	int op_div(int a, int b) {
+        if(b == 0)
+            throw ParseException("divide by zero", "a / b");
+        return a / b;
+    }
+	int op_mod(int a, int b) {
+        if(b == 0)
+            throw ParseException("divide by zero", "a % b");
+        return a % b;
+    }
 	int op_greater(int a, int b) { return a > b; }
 	int op_less(int a, int b) { return a < b; }
 	int op_eq(int a, int b) { return a == b; }

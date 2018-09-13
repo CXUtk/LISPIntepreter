@@ -123,6 +123,33 @@ LISPIntepreter/fast:
 	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/build
 .PHONY : LISPIntepreter/fast
 
+LispIntepreter/ParseException.o: LispIntepreter/ParseException.cpp.o
+
+.PHONY : LispIntepreter/ParseException.o
+
+# target to build an object file
+LispIntepreter/ParseException.cpp.o:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.o
+.PHONY : LispIntepreter/ParseException.cpp.o
+
+LispIntepreter/ParseException.i: LispIntepreter/ParseException.cpp.i
+
+.PHONY : LispIntepreter/ParseException.i
+
+# target to preprocess a source file
+LispIntepreter/ParseException.cpp.i:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.i
+.PHONY : LispIntepreter/ParseException.cpp.i
+
+LispIntepreter/ParseException.s: LispIntepreter/ParseException.cpp.s
+
+.PHONY : LispIntepreter/ParseException.s
+
+# target to generate assembly for a file
+LispIntepreter/ParseException.cpp.s:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.s
+.PHONY : LispIntepreter/ParseException.cpp.s
+
 LispIntepreter/Parser.o: LispIntepreter/Parser.cpp.o
 
 .PHONY : LispIntepreter/Parser.o
@@ -186,6 +213,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... LISPIntepreter"
+	@echo "... LispIntepreter/ParseException.o"
+	@echo "... LispIntepreter/ParseException.i"
+	@echo "... LispIntepreter/ParseException.s"
 	@echo "... LispIntepreter/Parser.o"
 	@echo "... LispIntepreter/Parser.i"
 	@echo "... LispIntepreter/Parser.s"
