@@ -10,9 +10,10 @@ int main(int argc, char ** argv) {
 	//printf("%s\n", ">>>");
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
-	char buffer1[] = "define x 3";
- 	char buffer[] = "/ (* (+ 2 (* 4 6)) (+ 3 5 7)) 9";
-	Parser parser;
+	char buffer1[] = "define x (+ 3 0)";
+ 	char buffer[] = "^ x 3";
+	Parser parser; 
+	parser.Parse(buffer1);
 	parser.Parse(buffer);
 	getchar();
 	return 0;
