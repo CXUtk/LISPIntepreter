@@ -51,7 +51,7 @@ int Parser::parseNumber(LispNode *node) {
         node->v.value = num;
     }
     catch (std::invalid_argument &a) {
-        throw ParseException("Invalid Number", a.what());
+        throw ParseException( "Invalid Number", a.what());
         // fprintf(stderr, "[Invalid number] \n%s: %s\n", a.what(), str.c_str());
         // return PARSE_NUMBER_ERROR;
     }
@@ -99,7 +99,7 @@ int Parser::parseSymbol(LispNode *node) {
                 memcpy(node->v.content, str.c_str(), str.size() + 1);
                 return PARSE_OK;
             } else {
-                throw ParseException("Unknown Symbol", strcat(const_cast<char *>(str.c_str()), " is not defined"));
+                throw ParseException( "Unknown Symbol", strcat(const_cast<char *>(str.c_str()), " is not defined"));
                 //fprintf(stderr, "[Unknown symbol] %s is not defined\n", str.c_str());
                 //return PARSE_UNKNOWN_SYMBOL;
             }
@@ -131,6 +131,7 @@ int Parser::parseToken(LispNode *node) {
             _pos++;
             parseWhiteSpace();
             if ((ret = appendElements(node)) != PARSE_OK) return ret;
+
             break;
         }
         case '>':
@@ -234,6 +235,9 @@ int Parser::appendElements(LispNode *node) {
         parseWhiteSpace();
         node->children.push_back(element);
     }
+	if (node->type == ValueType::M_OPERATOR && node->children.size() < 2) {
+		throw ParseException("Not enough operand", "At least two operand for binary operator");
+	}
     return PARSE_OK;
 }
 
@@ -258,6 +262,7 @@ int Parser::_eval(LispNode *node) {
                 fprintf(stderr, "%s\n", "Invalid Operator!");
                 return 0;
             }
+
             int num = _eval(node->children[0]);
             for (int i = 1; i < node->children.size(); i++) {
                 num = (this->*multiOPMap[node->v.value])(num, _eval(node->children[i]));

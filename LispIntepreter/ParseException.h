@@ -8,13 +8,15 @@
 #include <string>
 #include <utility>
 
+
 class ParseException : public std::exception {
 public:
-    ParseException(std::string title, std::string msg): _title(std::move(title)), _msg(std::move(msg)){}
+    ParseException(std::string title, std::string msg):
+		_title(std::move(title)), _msg(std::move(msg)){}
     const char* what() const _NOEXCEPT override;
 private:
     std::string _title;
-    std::string _msg;
+	std::string _msg;
 };
 
 

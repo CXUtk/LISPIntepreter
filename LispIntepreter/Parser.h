@@ -19,11 +19,10 @@ enum OP_CODE {
 };
 
 enum class ValueType {
-    // Rule: (<op> <number> <number> ...)
-            M_OPERATOR,
-    // Rule: (<op> <number>)
-            OPERATOR,
-    EXPRESSION,
+	// Rule: word in table
+			KEYWORD,
+	// Rule: (<function call>/<key> [<arguments>])
+			EXPRESSION,
     // Rule: REG -> (-)?[0-9]+(.)?[0-9]+
             CONSTANT,
     // Rule: \w+.*\s
@@ -116,13 +115,13 @@ private:
 
     int op_div(int a, int b) {
         if (b == 0)
-            throw ParseException("divide by zero", "a / b");
+            throw ParseException( "divide by zero", "a / b");
         return a / b;
     }
 
     int op_mod(int a, int b) {
         if (b == 0)
-            throw ParseException("divide by zero", "a % b");
+             throw ParseException("divide by zero", "a % b");
         return a % b;
     }
 
