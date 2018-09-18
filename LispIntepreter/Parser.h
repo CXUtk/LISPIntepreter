@@ -8,52 +8,8 @@
 #include <memory>
 
 #include "ParseException.h"
+#include "LispNode.h"
 
-enum OP_CODE {
-    GREATER_EQ = 0x100,
-    LESS_EQ,
-    NOT_EQ,
-    LOGIC_AND,
-    LOGIC_OR
-
-};
-
-enum class ValueType {
-	// Rule: word in table
-			KEYWORD,
-	// Rule: (<function call>/<key> [<arguments>])
-			EXPRESSION,
-    // Rule: REG -> (-)?[0-9]+(.)?[0-9]+
-            CONSTANT,
-    // Rule: \w+.*\s
-            SYMBOL,
-    // Rule: \".*\"
-            STRING,
-    // Rule: define (<symbol> [<arguments>]) (<expression>)
-            FUNCTION,
-    // Rule: (<function> <args...>)
-            FUNCTION_CALL,
-    EMPTY
-};
-
-class LispNode {
-public:
-    ValueType type;
-
-    union vl {
-        int value;
-        char *content;
-
-        vl() {
-            value = 0;
-            content = 0;
-        }
-    } v;
-
-    std::vector<LispNode *> children;
-
-    LispNode() : type(ValueType::EMPTY) {}
-};
 
 class Parser {
 public:

@@ -82,6 +82,24 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispConstant.cpp">
+			<Option target="LISPIntepreter"/>
+		</Unit>
+		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispConstant.h">
+			<Option target="LISPIntepreter"/>
+		</Unit>
+		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispFunction.cpp">
+			<Option target="LISPIntepreter"/>
+		</Unit>
+		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispFunction.h">
+			<Option target="LISPIntepreter"/>
+		</Unit>
+		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispNode.cpp">
+			<Option target="LISPIntepreter"/>
+		</Unit>
+		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispNode.h">
+			<Option target="LISPIntepreter"/>
+		</Unit>
 		<Unit filename="/Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/ParseException.cpp">
 			<Option target="LISPIntepreter"/>
 		</Unit>

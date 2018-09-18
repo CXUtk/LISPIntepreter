@@ -1,4 +1,6 @@
 #include "Parser.h"
+#include "LispFunction.h"
+#include "LispConstant.h"
 
 
 Parser::Parser() : _pos(0), _code(nullptr) {
@@ -46,9 +48,10 @@ int Parser::parseNumber(LispNode *node) {
     }
     std::string str(_code + start, _pos - start);
     try {
+        auto n = new LispConstant;
         int num = std::stoi(str, nullptr, 10);
-        node->type = ValueType::CONSTANT;
-        node->v.value = num;
+        n->setNumber(num);
+        node->appendChild(n);
     }
     catch (std::invalid_argument &a) {
         throw ParseException( "Invalid Number", a.what());
@@ -126,38 +129,38 @@ int Parser::parseToken(LispNode *node) {
         case '%':
         case '=':
         case '^': {
-            node->type = ValueType::M_OPERATOR;
-            node->v.value = _code[_pos];
+            auto n = new LispFunction;
+            n->setName(_code[_pos]);
             _pos++;
             parseWhiteSpace();
-            if ((ret = appendElements(node)) != PARSE_OK) return ret;
-
+            if ((ret = appendElements(n)) != PARSE_OK) return ret;
+            node->appendChild(n);
             break;
         }
         case '>':
         case '<':
         case '!': {
-            node->type = ValueType::M_OPERATOR;
+            auto n = new LispFunction;
             if (_code[_pos + 1] == '=') {
                 switch (_code[_pos]) {
                     case '>':
-                        node->v.value = OP_CODE::GREATER_EQ;
+                        n->setName("geq");
                         break;
                     case '<':
-                        node->v.value = OP_CODE::LESS_EQ;
+                        n->setName("leq");
                         break;
                     case '!':
-                        node->v.value = OP_CODE::NOT_EQ;
+                        n->setName("neq");
                         break;
                     default:
                         break;
                 }
                 _pos++;
             } else {
-                node->v.value = _code[_pos];
+                n->setName(_code[_pos]);
                 switch (_code[_pos]) {
                     case '!':
-                        node->type = ValueType::OPERATOR;
+                        n->setArgumentNum(1);
                         break;
                     default:
                         break;
@@ -165,50 +168,49 @@ int Parser::parseToken(LispNode *node) {
             }
             _pos++;
             parseWhiteSpace();
-            if ((ret = appendElements(node)) != PARSE_OK) return ret;
+            if ((ret = appendElements(n)) != PARSE_OK) return ret;
+            node->appendChild(n);
             break;
         }
         case '&':
         case '|': {
-            node->type = ValueType::M_OPERATOR;
+            auto n = new LispFunction;
             if (_code[_pos + 1] == _code[_pos]) {
                 if (_code[_pos] == '&')
-                    node->v.value = OP_CODE::LOGIC_AND;
+                    n->setName("&&");
                 else
-                    node->v.value = OP_CODE::LOGIC_OR;
+                    n->setName("||");
                 _pos++;
             } else {
-                node->v.value = _code[_pos];
+                n->setName(_code[_pos]);
             }
             _pos++;
             parseWhiteSpace();
-            if ((ret = appendElements(node)) != PARSE_OK) return ret;
+            if ((ret = appendElements(n)) != PARSE_OK) return ret;
+            node->appendChild(n);
             break;
         }
         case '~': {
-            node->type = ValueType::OPERATOR;
-            node->v.value = _code[_pos];
+            auto n = new LispFunction;
+            n->setArgumentNum(1);
+            n->setName(_code[_pos]);
             _pos++;
             parseWhiteSpace();
-            if ((ret = appendElements(node)) != PARSE_OK) return ret;
+            if ((ret = appendElements(n)) != PARSE_OK) return ret;
+            node->appendChild(n);
             break;
         }
         case '(': {
             _pos++;
             if (_code[_pos] != ')') {
-                LispNode *element = new LispNode;
-                node->type = ValueType::EXPRESSION;
+                auto element = new LispNode;
                 parseToken(element);
-                node->children.push_back(element);
+                node->appendChild(element);
                 return PARSE_OK;
             }
             break;
         }
         case ')': {
-            //if (!_context.empty()) {
-            //	auto top = _context.top();
-
-            //}
             _pos++;
             return PARSE_OK;
         }
@@ -233,16 +235,14 @@ int Parser::appendElements(LispNode *node) {
         auto element = new LispNode;
         if ((ret = parseToken(element)) != PARSE_OK) return ret;
         parseWhiteSpace();
-        node->children.push_back(element);
+        node->appendChild(element);
     }
-	if (node->type == ValueType::M_OPERATOR && node->children.size() < 2) {
-		throw ParseException("Not enough operand", "At least two operand for binary operator");
-	}
     return PARSE_OK;
 }
 
 int Parser::_eval(LispNode *node) {
-    switch (node->type) {
+    node->eval();
+/*    switch (node->type) {
         case ValueType::EXPRESSION: {
             return _eval(node->children[0]);
         }
@@ -275,27 +275,15 @@ int Parser::_eval(LispNode *node) {
         default:
             return 0;
             break;
-    }
+    }*/
 }
 
 void Parser::clearRoot() {
-    clearNode(_root);
+    delete _root;
 }
 
 void Parser::clearNode(LispNode *n) {
-    if (n->type == ValueType::EMPTY || n->children.empty()) {
-        if (n->type == ValueType::SYMBOL) {
-            delete[] n->v.content;
-        }
-        delete n;
-        return;
-    }
-    while (!n->children.empty()) {
-        for (auto c : n->children) {
-            clearNode(c);
-            n->children.pop_back();
-        }
-    }
+
 }
 
 bool Parser::isKeyword(const std::string &str) {

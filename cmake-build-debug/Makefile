@@ -123,6 +123,87 @@ LISPIntepreter/fast:
 	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/build
 .PHONY : LISPIntepreter/fast
 
+LispIntepreter/LispConstant.o: LispIntepreter/LispConstant.cpp.o
+
+.PHONY : LispIntepreter/LispConstant.o
+
+# target to build an object file
+LispIntepreter/LispConstant.cpp.o:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o
+.PHONY : LispIntepreter/LispConstant.cpp.o
+
+LispIntepreter/LispConstant.i: LispIntepreter/LispConstant.cpp.i
+
+.PHONY : LispIntepreter/LispConstant.i
+
+# target to preprocess a source file
+LispIntepreter/LispConstant.cpp.i:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.i
+.PHONY : LispIntepreter/LispConstant.cpp.i
+
+LispIntepreter/LispConstant.s: LispIntepreter/LispConstant.cpp.s
+
+.PHONY : LispIntepreter/LispConstant.s
+
+# target to generate assembly for a file
+LispIntepreter/LispConstant.cpp.s:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.s
+.PHONY : LispIntepreter/LispConstant.cpp.s
+
+LispIntepreter/LispFunction.o: LispIntepreter/LispFunction.cpp.o
+
+.PHONY : LispIntepreter/LispFunction.o
+
+# target to build an object file
+LispIntepreter/LispFunction.cpp.o:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o
+.PHONY : LispIntepreter/LispFunction.cpp.o
+
+LispIntepreter/LispFunction.i: LispIntepreter/LispFunction.cpp.i
+
+.PHONY : LispIntepreter/LispFunction.i
+
+# target to preprocess a source file
+LispIntepreter/LispFunction.cpp.i:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.i
+.PHONY : LispIntepreter/LispFunction.cpp.i
+
+LispIntepreter/LispFunction.s: LispIntepreter/LispFunction.cpp.s
+
+.PHONY : LispIntepreter/LispFunction.s
+
+# target to generate assembly for a file
+LispIntepreter/LispFunction.cpp.s:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.s
+.PHONY : LispIntepreter/LispFunction.cpp.s
+
+LispIntepreter/LispNode.o: LispIntepreter/LispNode.cpp.o
+
+.PHONY : LispIntepreter/LispNode.o
+
+# target to build an object file
+LispIntepreter/LispNode.cpp.o:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o
+.PHONY : LispIntepreter/LispNode.cpp.o
+
+LispIntepreter/LispNode.i: LispIntepreter/LispNode.cpp.i
+
+.PHONY : LispIntepreter/LispNode.i
+
+# target to preprocess a source file
+LispIntepreter/LispNode.cpp.i:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.i
+.PHONY : LispIntepreter/LispNode.cpp.i
+
+LispIntepreter/LispNode.s: LispIntepreter/LispNode.cpp.s
+
+.PHONY : LispIntepreter/LispNode.s
+
+# target to generate assembly for a file
+LispIntepreter/LispNode.cpp.s:
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.s
+.PHONY : LispIntepreter/LispNode.cpp.s
+
 LispIntepreter/ParseException.o: LispIntepreter/ParseException.cpp.o
 
 .PHONY : LispIntepreter/ParseException.o
@@ -213,6 +294,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... LISPIntepreter"
+	@echo "... LispIntepreter/LispConstant.o"
+	@echo "... LispIntepreter/LispConstant.i"
+	@echo "... LispIntepreter/LispConstant.s"
+	@echo "... LispIntepreter/LispFunction.o"
+	@echo "... LispIntepreter/LispFunction.i"
+	@echo "... LispIntepreter/LispFunction.s"
+	@echo "... LispIntepreter/LispNode.o"
+	@echo "... LispIntepreter/LispNode.i"
+	@echo "... LispIntepreter/LispNode.s"
 	@echo "... LispIntepreter/ParseException.o"
 	@echo "... LispIntepreter/ParseException.i"
 	@echo "... LispIntepreter/ParseException.s"

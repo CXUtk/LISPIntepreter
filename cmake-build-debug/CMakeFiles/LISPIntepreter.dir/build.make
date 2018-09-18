@@ -129,11 +129,86 @@ CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.o.provides: CMak
 CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.o.provides.build: CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.o
 
 
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o: CMakeFiles/LISPIntepreter.dir/flags.make
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o: ../LispIntepreter/LispNode.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenxujie/Git/Projects/LISPIntepreter/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o -c /Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispNode.cpp
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispNode.cpp > CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.i
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispNode.cpp -o CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.s
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o.requires:
+
+.PHONY : CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o.requires
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o.provides: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o.requires
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o.provides.build
+.PHONY : CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o.provides
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o.provides.build: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o
+
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o: CMakeFiles/LISPIntepreter.dir/flags.make
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o: ../LispIntepreter/LispFunction.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenxujie/Git/Projects/LISPIntepreter/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o -c /Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispFunction.cpp
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispFunction.cpp > CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.i
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispFunction.cpp -o CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.s
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o.requires:
+
+.PHONY : CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o.requires
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o.provides: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o.requires
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o.provides.build
+.PHONY : CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o.provides
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o.provides.build: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o
+
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o: CMakeFiles/LISPIntepreter.dir/flags.make
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o: ../LispIntepreter/LispConstant.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/chenxujie/Git/Projects/LISPIntepreter/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o -c /Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispConstant.cpp
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispConstant.cpp > CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.i
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/chenxujie/Git/Projects/LISPIntepreter/LispIntepreter/LispConstant.cpp -o CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.s
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o.requires:
+
+.PHONY : CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o.requires
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o.provides: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o.requires
+	$(MAKE) -f CMakeFiles/LISPIntepreter.dir/build.make CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o.provides.build
+.PHONY : CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o.provides
+
+CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o.provides.build: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o
+
+
 # Object files for target LISPIntepreter
 LISPIntepreter_OBJECTS = \
 "CMakeFiles/LISPIntepreter.dir/LispIntepreter/main.cpp.o" \
 "CMakeFiles/LISPIntepreter.dir/LispIntepreter/Parser.cpp.o" \
-"CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.o"
+"CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.o" \
+"CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o" \
+"CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o" \
+"CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o"
 
 # External object files for target LISPIntepreter
 LISPIntepreter_EXTERNAL_OBJECTS =
@@ -141,9 +216,12 @@ LISPIntepreter_EXTERNAL_OBJECTS =
 LISPIntepreter: CMakeFiles/LISPIntepreter.dir/LispIntepreter/main.cpp.o
 LISPIntepreter: CMakeFiles/LISPIntepreter.dir/LispIntepreter/Parser.cpp.o
 LISPIntepreter: CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.o
+LISPIntepreter: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o
+LISPIntepreter: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o
+LISPIntepreter: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o
 LISPIntepreter: CMakeFiles/LISPIntepreter.dir/build.make
 LISPIntepreter: CMakeFiles/LISPIntepreter.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/chenxujie/Git/Projects/LISPIntepreter/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable LISPIntepreter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/chenxujie/Git/Projects/LISPIntepreter/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable LISPIntepreter"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/LISPIntepreter.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -154,6 +232,9 @@ CMakeFiles/LISPIntepreter.dir/build: LISPIntepreter
 CMakeFiles/LISPIntepreter.dir/requires: CMakeFiles/LISPIntepreter.dir/LispIntepreter/main.cpp.o.requires
 CMakeFiles/LISPIntepreter.dir/requires: CMakeFiles/LISPIntepreter.dir/LispIntepreter/Parser.cpp.o.requires
 CMakeFiles/LISPIntepreter.dir/requires: CMakeFiles/LISPIntepreter.dir/LispIntepreter/ParseException.cpp.o.requires
+CMakeFiles/LISPIntepreter.dir/requires: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispNode.cpp.o.requires
+CMakeFiles/LISPIntepreter.dir/requires: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispFunction.cpp.o.requires
+CMakeFiles/LISPIntepreter.dir/requires: CMakeFiles/LISPIntepreter.dir/LispIntepreter/LispConstant.cpp.o.requires
 
 .PHONY : CMakeFiles/LISPIntepreter.dir/requires
 
