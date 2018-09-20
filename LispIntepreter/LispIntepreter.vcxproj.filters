@@ -21,6 +21,15 @@
     <ClInclude Include="ParseException.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="LispConstant.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LispFunction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LispNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Parser.cpp">
@@ -30,6 +39,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ParseException.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LispConstant.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LispFunction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LispNode.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

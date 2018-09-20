@@ -115,10 +115,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="LispConstant.h" />
+    <ClInclude Include="LispFunction.h" />
+    <ClInclude Include="LispNode.h" />
     <ClInclude Include="ParseException.h" />
     <ClInclude Include="Parser.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LispConstant.cpp" />
+    <ClCompile Include="LispFunction.cpp" />
+    <ClCompile Include="LispNode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseException.cpp" />
     <ClCompile Include="Parser.cpp" />
