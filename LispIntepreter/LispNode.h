@@ -7,6 +7,7 @@
 
 
 #include <vector>
+#include <string>
 
 enum OP_CODE {
     GREATER_EQ = 0x100,
@@ -44,7 +45,9 @@ public:
 
     virtual void appendChild(LispNode *node) { children.push_back(node); }
 
-    virtual int eval() { if (!children.empty()) children[0]->eval(); }
+    virtual int eval() { if (!children.empty()) return children[0]->eval(); }
+
+    virtual std::string Type() const { return "node"; }
 
 protected:
     std::vector<LispNode *> children;

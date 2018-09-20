@@ -17,6 +17,7 @@ public:
 
     void setNumber(int num) { _value = num; }
 
+    std::string Type() const override { return "constant"; }
 private:
     int _value;
 };
