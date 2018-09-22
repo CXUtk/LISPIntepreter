@@ -18,6 +18,8 @@ public:
 	static std::set<std::string> keywordTable;
 	static void setUpTable();
 
+	std::string Type() const override { return "keyword"; }
+
 private:
 	std::string _name;
 };

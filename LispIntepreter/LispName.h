@@ -12,6 +12,8 @@ public:
 
 	std::string getName() { return _name; }
 
+	std::string Type() const override { return "name"; }
+
 private:
 	std::string _name;
 };

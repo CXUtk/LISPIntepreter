@@ -13,13 +13,9 @@
 
 class Parser {
 public:
-    typedef int (Parser::*funcType)(std::vector<LispNode *> params);
-
     Parser();
 
     ~Parser();
-
-    std::map<std::string, funcType> fuctionSymbolMap;
 
     void Parse(const char *str);
 
@@ -35,7 +31,6 @@ public:
 private:
     const char *_code;
     size_t _pos;
-    std::map<std::string, LispNode> _lookupTable;
     LispNode *_root;
     std::stack<LispNode *> _context;
 	bool argumentMode = false;

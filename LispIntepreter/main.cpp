@@ -13,9 +13,10 @@ int main(int argc, char ** argv) {
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
  	char buffer[] = "define x 3";
-	
+	char buffer1[] = "+ x 6";
 	Parser parser;
 	parser.Parse(buffer);
+	parser.Parse(buffer1);
 	getchar();
 	return 0;
 }

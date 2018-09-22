@@ -94,7 +94,10 @@ int Parser::parseSymbol(LispNode * parent, LispNode **node) {
 		*node = new LispFunction;
 		auto n = (LispFunction *)(*node);
 		n->setName(str);
-		if ((ret = appendElements(n)) != PARSE_OK) return ret;
+		auto info = LispFunction::customizedFuncTable[str];
+		if (info.argNumber != 0) {
+			if ((ret = appendElements(n)) != PARSE_OK) return ret;
+		}
 		parent->appendChild(n);
 		return PARSE_OK;
 	}

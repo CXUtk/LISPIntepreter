@@ -21,15 +21,15 @@ public:
     int eval() override;
 
     typedef int (*funcType)(int, int);
-	typedef int(*customFuncType)(LispFunction *);
 	typedef struct FunctionInfo {
 		int argNumber;
-		customFuncType func;
+		LispNode * node;
 	};
 
     static std::map<std::string, funcType> opFuncTable;
 	static std::map<std::string, FunctionInfo> customizedFuncTable;
     static void setUpTable();
+	static void destroyTable();
 
     void setName(const char c) {
         std::string s;

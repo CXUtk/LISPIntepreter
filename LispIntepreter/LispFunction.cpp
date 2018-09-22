@@ -63,6 +63,15 @@ int LispFunction::eval() {
         }
         return num;
     }
+	else if (customizedFuncTable.find(funcName) != customizedFuncTable.end()) {
+		auto n = customizedFuncTable[funcName];
+		if (n.argNumber > 0 && argumentNumber != n.argNumber) {
+			throw ParseException("Invalid argument number", "");
+		}
+		int num = customizedFuncTable[funcName].node->eval();
+		return num;
+	}
+	return 0;
 }
 
 void LispFunction::setUpTable() {
@@ -82,4 +91,8 @@ void LispFunction::setUpTable() {
     opFuncTable[">="] = op_GE;
     opFuncTable["<="] = op_LE;
     opFuncTable["!="] = op_NE;
+}
+
+void LispFunction::destroyTable()
+{
 }

@@ -49,6 +49,10 @@ public:
 
     virtual std::string Type() const { return "node"; }
 
+	size_t getChildrenSize() { return children.size(); }
+
+	static LispNode * copy(LispNode * node);
+
 protected:
     std::vector<LispNode *> children;
 };
