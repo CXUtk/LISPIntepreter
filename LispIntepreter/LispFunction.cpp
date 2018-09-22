@@ -95,4 +95,7 @@ void LispFunction::setUpTable() {
 
 void LispFunction::destroyTable()
 {
+	for (auto a : LispFunction::customizedFuncTable) {
+		delete a.second.node;
+	}
 }
