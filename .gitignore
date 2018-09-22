@@ -261,4 +261,4 @@ __pycache__/
 *.pyc
 
 # Clion
-cmake-build-debug/*
+cmake-build-debug/
