@@ -11,7 +11,7 @@ LispKeyWord::LispKeyWord() : LispNode()
 {
 }
 
-int LispKeyWord::eval()
+ReturnValue LispKeyWord::eval()
 {
 	if (this->_name == "define") {
 		LispFunction::FunctionInfo info;

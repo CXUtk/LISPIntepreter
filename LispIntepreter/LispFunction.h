@@ -18,7 +18,7 @@ public:
 
     }
 
-    int eval() override;
+	ReturnValue eval() override;
 
     typedef int (*funcType)(int, int);
 	typedef struct FunctionInfo {

@@ -282,7 +282,7 @@ int Parser::appendElements(LispNode *node) {
     return PARSE_OK;
 }
 
-int Parser::_eval(LispNode *node) {
+ReturnValue Parser::_eval(LispNode *node) {
     return node->eval();
 /*    switch (node->type) {
         case ValueType::EXPRESSION: {

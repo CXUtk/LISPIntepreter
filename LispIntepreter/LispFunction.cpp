@@ -49,12 +49,12 @@ int op_INV(int a, int b) { return ~a; }
 
 int op_NOT(int a, int b) { return !a; }
 
-int LispFunction::eval() {
+ReturnValue LispFunction::eval() {
     if(opFuncTable.find(funcName) != opFuncTable.end()){
         if(argumentNumber > 0 && argumentNumber != children.size()){
             throw ParseException("Invalid argument number", "");
         }
-        int num = children[0]->eval();
+		ReturnValue num = children[0]->eval();
         if(argumentNumber == 1){
             return (*opFuncTable[funcName])(num, 0);
         }
@@ -95,4 +95,7 @@ void LispFunction::setUpTable() {
 
 void LispFunction::destroyTable()
 {
+	for (auto a : LispFunction::customizedFuncTable) {
+		delete a.second.node;
+	}
 }

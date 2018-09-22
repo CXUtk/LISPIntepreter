@@ -19,21 +19,30 @@ enum OP_CODE {
 };
 
 enum class ValueType {
-    // Rule: word in table
-            KEYWORD,
-    // Rule: (<function call>/<key> [<arguments>])
-            EXPRESSION,
-    // Rule: REG -> (-)?[0-9]+(.)?[0-9]+
-            CONSTANT,
-    // Rule: \w+.*\s
-            SYMBOL,
-    // Rule: \".*\"
-            STRING,
-    // Rule: define (<symbol> [<arguments>]) (<expression>)
-            FUNCTION,
-    // Rule: (<function> <args...>)
-            FUNCTION_CALL,
-    EMPTY
+	INTEGER,
+	DOUBLE,
+	STRING,
+	FUNCTION,
+	NONE
+};
+
+class ReturnValue {
+public:
+	ReturnValue(ValueType type);
+	~ReturnValue();
+
+	void printValue() const;
+
+private:
+	ValueType _type;
+	union Value
+	{
+		int i;
+		double d;
+		std::string str;
+		void * func;
+	};
+	Value _value;
 };
 
 class LispNode {
@@ -45,7 +54,7 @@ public:
 
     virtual void appendChild(LispNode *node) { children.push_back(node); }
 
-    virtual int eval() { if (!children.empty()) return children[0]->eval(); }
+    virtual ReturnValue eval() { if (!children.empty()) return children[0]->eval(); }
 
     virtual std::string Type() const { return "node"; }
 
