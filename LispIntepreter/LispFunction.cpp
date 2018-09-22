@@ -7,6 +7,7 @@
 
 
 std::map<std::string, LispFunction::funcType> LispFunction::opFuncTable;
+std::map<std::string, LispFunction::FunctionInfo> LispFunction::customizedFuncTable;
 
 int op_add(int a, int b) { return a + b; }
 

@@ -117,6 +117,8 @@
   <ItemGroup>
     <ClInclude Include="LispConstant.h" />
     <ClInclude Include="LispFunction.h" />
+    <ClInclude Include="LispKeyWord.h" />
+    <ClInclude Include="LispName.h" />
     <ClInclude Include="LispNode.h" />
     <ClInclude Include="ParseException.h" />
     <ClInclude Include="Parser.h" />
@@ -124,6 +126,8 @@
   <ItemGroup>
     <ClCompile Include="LispConstant.cpp" />
     <ClCompile Include="LispFunction.cpp" />
+    <ClCompile Include="LispKeyWord.cpp" />
+    <ClCompile Include="LispName.cpp" />
     <ClCompile Include="LispNode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseException.cpp" />

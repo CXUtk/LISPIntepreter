@@ -30,6 +30,12 @@
     <ClInclude Include="LispNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="LispKeyWord.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LispName.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Parser.cpp">
@@ -48,6 +54,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="LispNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LispKeyWord.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LispName.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

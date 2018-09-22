@@ -1,6 +1,8 @@
 #include "Parser.h"
 #include "LispFunction.h"
 #include "LispConstant.h"
+#include "LispKeyWord.h"
+#include "LispName.h"
 
 
 Parser::Parser() : _pos(0), _code(nullptr) {
@@ -63,13 +65,43 @@ int Parser::parseNumber(LispNode * parent, LispNode **node) {
     return PARSE_OK;
 }
 
-int Parser::parseSymbol(LispNode **node) {
-   /* int ret;
+int Parser::parseSymbol(LispNode * parent, LispNode **node) {
+    int ret;
     size_t start = _pos;
     while (!isWhiteSpace(_code[_pos]) && _code[_pos] != '\0' && _code[_pos] != ')') {
         _pos++;
     }
     std::string str(_code + start, _pos - start);
+	parseWhiteSpace();
+	if (argumentMode) {
+		*node = new LispName(str);
+		parent->appendChild(*node);
+		return PARSE_OK;
+	}
+	if (LispKeyWord::keywordTable.find(str) != LispKeyWord::keywordTable.end()) {
+		*node = new LispKeyWord;
+		auto n = (LispKeyWord *)(*node);
+		n->setName(str);
+		if (str == "define") {
+			argumentMode = true;
+		}
+		if ((ret = appendElements(n)) != PARSE_OK) return ret;
+		argumentMode = false;
+		parent->appendChild(n);
+		return PARSE_OK;
+	}
+	else if (LispFunction::customizedFuncTable.find(str) != LispFunction::customizedFuncTable.end()) {
+		*node = new LispFunction;
+		auto n = (LispFunction *)(*node);
+		n->setName(str);
+		if ((ret = appendElements(n)) != PARSE_OK) return ret;
+		parent->appendChild(n);
+		return PARSE_OK;
+	}
+	else {
+		throw ParseException("Undefined Symbol", "Cannot parse: " + str);
+	}
+	/*
     if (str == "define") {
         parseWhiteSpace();
         start = _pos;
@@ -222,7 +254,8 @@ int Parser::parseToken(LispNode * parent, LispNode **node) {
             return PARSE_OK;
         }
         default:
-            return parseSymbol(node);
+			
+			return parseSymbol(parent, node);
     }
 
     if (_code[_pos] == '\0')
@@ -247,7 +280,7 @@ int Parser::appendElements(LispNode *node) {
 }
 
 int Parser::_eval(LispNode *node) {
-    node->eval();
+    return node->eval();
 /*    switch (node->type) {
         case ValueType::EXPRESSION: {
             return _eval(node->children[0]);
@@ -298,6 +331,7 @@ bool Parser::isKeyword(const std::string &str) {
 
 void Parser::init() {
     LispFunction::setUpTable();
+	LispKeyWord::setUpTable();
 }
 
 

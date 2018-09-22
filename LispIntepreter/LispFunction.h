@@ -20,11 +20,15 @@ public:
 
     int eval() override;
 
-    std::string getName() const { return funcName; }
-
     typedef int (*funcType)(int, int);
+	typedef int(*customFuncType)(LispFunction *);
+	typedef struct FunctionInfo {
+		int argNumber;
+		customFuncType func;
+	};
 
     static std::map<std::string, funcType> opFuncTable;
+	static std::map<std::string, FunctionInfo> customizedFuncTable;
     static void setUpTable();
 
     void setName(const char c) {
@@ -33,8 +37,10 @@ public:
         funcName = s;
     }
 
+	std::string getName() const { return funcName; }
     void setName(const std::string &name) { funcName = name; }
 
+	int getArgumentNum() { return argumentNumber; }
     void setArgumentNum(int num) { argumentNumber = num; }
 
     std::string Type() const override { return "function"; }

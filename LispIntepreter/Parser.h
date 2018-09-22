@@ -38,6 +38,7 @@ private:
     std::map<std::string, LispNode> _lookupTable;
     LispNode *_root;
     std::stack<LispNode *> _context;
+	bool argumentMode = false;
 
 
     void init();
@@ -46,7 +47,7 @@ private:
 
     int parseNumber(LispNode * parent,LispNode **node);
 
-    int parseSymbol(LispNode **node);
+	int parseSymbol(LispNode * parent, LispNode ** node);
 
     int parseToken(LispNode * parent, LispNode **node);
 
@@ -62,7 +63,7 @@ private:
 
     bool isKeyword(const std::string &str);
 
-    int applyToChild();
+    // int applyToChild();
 
 };
 

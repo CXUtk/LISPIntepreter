@@ -12,7 +12,7 @@ int main(int argc, char ** argv) {
 	//printf("%s\n", ">>>");
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
- 	char buffer[] = "+ (/ 10 2) 8";
+ 	char buffer[] = "define x 3";
 	
 	Parser parser;
 	parser.Parse(buffer);
