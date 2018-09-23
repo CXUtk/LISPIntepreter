@@ -56,10 +56,15 @@ ReturnValue LispFunction::eval() {
         }
 		ReturnValue num = children[0]->eval();
         if(argumentNumber == 1){
-            return (*opFuncTable[funcName])(num, 0);
+			auto n = (*opFuncTable[funcName])(num.getInt(), 0);
+			ReturnValue ret(ValueType::INTEGER);
+			ret.setInt(n);
+			return ret;
         }
         for (int i = 1; i < children.size(); i++) {
-            num = (*opFuncTable[funcName])(num, children[i]->eval());
+			auto a = num.getInt();
+			auto b = children[i]->eval().getInt();
+			num.setInt((*opFuncTable[funcName])(a, b));
         }
         return num;
     }
@@ -68,10 +73,10 @@ ReturnValue LispFunction::eval() {
 		if (n.argNumber > 0 && argumentNumber != n.argNumber) {
 			throw ParseException("Invalid argument number", "");
 		}
-		int num = customizedFuncTable[funcName].node->eval();
-		return num;
+		auto ret = customizedFuncTable[funcName].node->eval();
+		return ret;
 	}
-	return 0;
+	return ReturnValue(ValueType::NONE);
 }
 
 void LispFunction::setUpTable() {

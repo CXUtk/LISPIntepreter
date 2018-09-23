@@ -22,7 +22,7 @@ ReturnValue LispKeyWord::eval()
 			LispFunction::customizedFuncTable[n->getName()] = info;
 		}
 	}
-	return 0;
+	return ReturnValue(ValueType::NONE);
 }
 
 void LispKeyWord::setUpTable()

@@ -8,42 +8,8 @@
 
 #include <vector>
 #include <string>
+#include "ReturnValue.h"
 
-enum OP_CODE {
-    GREATER_EQ = 0x100,
-    LESS_EQ,
-    NOT_EQ,
-    LOGIC_AND,
-    LOGIC_OR
-
-};
-
-enum class ValueType {
-	INTEGER,
-	DOUBLE,
-	STRING,
-	FUNCTION,
-	NONE
-};
-
-class ReturnValue {
-public:
-	ReturnValue(ValueType type);
-	~ReturnValue();
-
-	void printValue() const;
-
-private:
-	ValueType _type;
-	union Value
-	{
-		int i;
-		double d;
-		std::string str;
-		void * func;
-	};
-	Value _value;
-};
 
 class LispNode {
 public:
