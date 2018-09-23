@@ -9,7 +9,7 @@ class LispKeyWord : public LispNode
 public:
 	LispKeyWord();
 
-	int eval() override;
+	ReturnValue eval() override;
 
 	void setName(const std::string& str) { _name = str; }
 

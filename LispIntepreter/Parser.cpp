@@ -34,8 +34,8 @@ void Parser::Parse(const char *str) {
 }
 
 void Parser::Eval() {
-    int res = _root->eval();
-    printf("%d\n", res);
+    auto ret = _root->eval();
+	ret.printValue();
 }
 
 void Parser::parseWhiteSpace() {
@@ -95,6 +95,7 @@ int Parser::parseSymbol(LispNode * parent, LispNode **node) {
 		auto n = (LispFunction *)(*node);
 		n->setName(str);
 		auto info = LispFunction::customizedFuncTable[str];
+		n->setArgumentNum(info.argNumber);
 		if (info.argNumber != 0) {
 			if ((ret = appendElements(n)) != PARSE_OK) return ret;
 		}
@@ -282,7 +283,7 @@ int Parser::appendElements(LispNode *node) {
     return PARSE_OK;
 }
 
-int Parser::_eval(LispNode *node) {
+ReturnValue Parser::_eval(LispNode *node) {
     return node->eval();
 /*    switch (node->type) {
         case ValueType::EXPRESSION: {

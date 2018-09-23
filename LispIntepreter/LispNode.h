@@ -8,33 +8,8 @@
 
 #include <vector>
 #include <string>
+#include "ReturnValue.h"
 
-enum OP_CODE {
-    GREATER_EQ = 0x100,
-    LESS_EQ,
-    NOT_EQ,
-    LOGIC_AND,
-    LOGIC_OR
-
-};
-
-enum class ValueType {
-    // Rule: word in table
-            KEYWORD,
-    // Rule: (<function call>/<key> [<arguments>])
-            EXPRESSION,
-    // Rule: REG -> (-)?[0-9]+(.)?[0-9]+
-            CONSTANT,
-    // Rule: \w+.*\s
-            SYMBOL,
-    // Rule: \".*\"
-            STRING,
-    // Rule: define (<symbol> [<arguments>]) (<expression>)
-            FUNCTION,
-    // Rule: (<function> <args...>)
-            FUNCTION_CALL,
-    EMPTY
-};
 
 class LispNode {
 public:
@@ -45,7 +20,7 @@ public:
 
     virtual void appendChild(LispNode *node) { children.push_back(node); }
 
-    virtual int eval() { if (!children.empty()) return children[0]->eval(); }
+    virtual ReturnValue eval() { if (!children.empty()) return children[0]->eval(); }
 
     virtual std::string Type() const { return "node"; }
 
