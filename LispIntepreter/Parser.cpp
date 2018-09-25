@@ -17,15 +17,22 @@ Parser::~Parser() {
 
 void Parser::Parse(const char *str) {
     clearRoot();
-    _root = new LispNode;
+    _root = nullptr;
     _code = str;
     _pos = 0;
+    _len = strlen(_code);
     parseWhiteSpace();
     try {
-        _context.push(_root);
-        if (parseToken() == PARSE_OK) {
-            Eval();
+        _context.push(new LispNode);
+        parseNode();
+        if(_context.size() == 1) {
+            _root = _context.top();
+            _context.pop();
         }
+        else{
+            throw ParseException("Context stack not match", "stack");
+        }
+        Eval();
     }
     catch (ParseException &ex) {
         fprintf(stderr, "%s\n", ex.what());
@@ -44,46 +51,47 @@ void Parser::parseWhiteSpace() {
         _pos++;
 }
 
-int Parser::parseNumber(LispNode *parent, LispNode **node) {
+LispNode * Parser::parseNumber() {
     size_t start = _pos;
     while (isdigit(_code[_pos]) || _code[_pos] == '.') {
         _pos++;
     }
     std::string str(_code + start, _pos - start);
     try {
-        *node = new LispConstant;
-        auto n = (LispConstant *) (*node);
+        auto node = new LispConstant;
         int num = std::stoi(str, nullptr, 10);
-        n->setNumber(num);
-        parent->appendChild(*node);
+        node->setNumber(num);
+        return node;
     }
     catch (std::invalid_argument &a) {
         throw ParseException("Invalid Number", a.what());
         // fprintf(stderr, "[Invalid number] \n%s: %s\n", a.what(), str.c_str());
         // return PARSE_NUMBER_ERROR;
     }
-    return PARSE_OK;
 }
 
-int Parser::parseSymbol(LispNode *parent, LispNode **node) {
-    int ret;
+LispNode * Parser::parseSymbol() {
     size_t start = _pos;
     while (!isWhiteSpace(_code[_pos]) && _code[_pos] != '\0' && _code[_pos] != ')') {
         _pos++;
     }
     std::string str(_code + start, _pos - start);
-    parseWhiteSpace();
     if (LispKeyWord::keywordTable.find(str) != LispKeyWord::keywordTable.end()) {
-        *node = new LispKeyWord;
-        auto n = (LispKeyWord *) (*node);
+        auto n = new LispKeyWord;
         n->setName(str);
-        if ((ret = appendElements(n)) != PARSE_OK) return ret;
-        parent->appendChild(n);
-        return PARSE_OK;
+        appendElements(n);
+        return n;
     }
-    *node = new LispName(str);
-    parent->appendChild(*node);
-    return PARSE_OK;
+    else if (LispFunction::customizedFuncTable.find(str) != LispFunction::customizedFuncTable.end()) {
+        auto n = new LispFunction;
+        n->setName(str);
+        appendElements(n);
+        return n;
+    }
+    else{
+        auto n = new LispName(str);
+        return n;
+    }
     /*return PARSE_OK;
 }
 
@@ -187,17 +195,16 @@ throw ParseException("Undefined Symbol", "Cannot parse: " + str);
     return PARSE_UNKNOWN_SYMBOL;*/
 }
 
-LispNode * Parser::parseNode() {
+void Parser::parseNode() {
 
     auto parent = _context.top();
     LispNode * node;
     if (_code[_pos] == '\0'){
-        auto parent = _context.top();
         _context.pop();
-        return parent;
     }
     if (isdigit(_code[_pos]) || (_code[_pos] == '-' && isdigit(_code[_pos + 1]))) {
-        node = parseNumber();
+        parent->appendChild(parseNumber());
+        return;
     }
     else {
         switch (_code[_pos]) {
@@ -209,19 +216,16 @@ LispNode * Parser::parseNode() {
             case '=':
             case '^': {
                 node = new LispFunction;
-                auto n = (LispFunction *) (node);
+                auto n = (LispFunction *) node;
                 n->setName(_code[_pos]);
-                _pos++;
-                parseWhiteSpace();
-                appendElements(n);
-                parent->appendChild(n);
+                appendElements(node);
                 break;
             }
             case '>':
             case '<':
             case '!': {
-                *node = new LispFunction;
-                auto n = (LispFunction *) (*node);
+                node = new LispFunction;
+                auto n = (LispFunction *) (node);
                 if (_code[_pos + 1] == '=') {
                     switch (_code[_pos]) {
                         case '>':
@@ -247,16 +251,13 @@ LispNode * Parser::parseNode() {
                             break;
                     }
                 }
-                _pos++;
-                parseWhiteSpace();
-                if ((ret = appendElements(n)) != PARSE_OK) return ret;
-                parent->appendChild(n);
+                appendElements(n);
                 break;
             }
             case '&':
             case '|': {
-                *node = new LispFunction;
-                auto n = (LispFunction *) (*node);
+                node = new LispFunction;
+                auto n = (LispFunction *) (node);
                 if (_code[_pos + 1] == _code[_pos]) {
                     if (_code[_pos] == '&')
                         n->setName("&&");
@@ -266,45 +267,39 @@ LispNode * Parser::parseNode() {
                 } else {
                     n->setName(_code[_pos]);
                 }
-                _pos++;
-                parseWhiteSpace();
-                if ((ret = appendElements(n)) != PARSE_OK) return ret;
-                parent->appendChild(n);
+                appendElements(n);
                 break;
             }
             case '~': {
-                *node = new LispFunction;
-                auto n = (LispFunction *) (*node);
+                node = new LispFunction;
+                auto n = (LispFunction *) (node);
                 n->setArgumentNum(1);
                 n->setName(_code[_pos]);
-                _pos++;
-                parseWhiteSpace();
-                if ((ret = appendElements(n)) != PARSE_OK) return ret;
-                parent->appendChild(n);
+                appendElements(n);
                 break;
             }
             case '(': {
-                _pos++;
-                if (_code[_pos] != ')') {
+                if (_code[_pos + 1] != ')') {
                     auto n = new LispNode;
                     _context.push(n);
-                    return n;
+                    appendElements(n);
+                    parent->appendChild(n);
+                    return;
                 }
                 break;
             }
             case ')': {
-                _pos++;
                 _context.pop();
-                return parent;
+                _pos++;
+                return;
             }
-            default:
-                return parseSymbol(parent, node);
+            default: {
+                node = parseSymbol();
+            }
         }
     }
-
     parent->appendChild(node);
-    return parent;
-    int ret;
+    /*int ret;
     if (_code[_pos] == '\0')
         return PARSE_END;
 
@@ -419,7 +414,7 @@ LispNode * Parser::parseNode() {
         return PARSE_OK;
     _pos++;
     parseWhiteSpace();
-    return PARSE_OK;
+    return PARSE_OK;*/
 }
 
 int Parser::parseKeyword(LispNode **node) {
@@ -427,11 +422,16 @@ int Parser::parseKeyword(LispNode **node) {
 }
 
 void Parser::appendElements(LispNode *node) {
+    _context.push(node);
+    _pos++;
+    parseWhiteSpace();
     while (_code[_pos] != '\0') {
-        node->appendChild(parseNode());
-        _pos++;
+        parseNode();
+        if(_code[_pos] == '\0')
+            break;
         parseWhiteSpace();
     }
+    _context.pop();
 }
 
 ReturnValue Parser::_eval(LispNode *node) {
@@ -489,9 +489,6 @@ void Parser::init() {
     LispKeyWord::setUpTable();
 }
 
-LispNode *Parser::parseNode() {
-    return nullptr;
-}
 
 
 bool isWhiteSpace(char c) {

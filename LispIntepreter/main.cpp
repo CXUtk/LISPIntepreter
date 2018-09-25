@@ -12,8 +12,8 @@ int main(int argc, char ** argv) {
 	//printf("%s\n", ">>>");
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
- 	char buffer[] = "define (x y) (+ y 1)";
-	char buffer1[] = "+ x 6";
+ 	char buffer[] = "define (x y) (+ 3 y)";
+	char buffer1[] = "x 7";
 	Parser parser;
 	parser.Parse(buffer);
 	parser.Parse(buffer1);

@@ -31,6 +31,7 @@ public:
 private:
     const char *_code;
     size_t _pos;
+	size_t _len;
     LispNode *_root;
     std::stack<LispNode *> _context;
 	bool argumentMode = false;
@@ -40,13 +41,13 @@ private:
 
     void parseWhiteSpace();
 
-    int parseNumber(LispNode * parent,LispNode **node);
+	LispNode* parseNumber();
 
-	int parseSymbol(LispNode * parent, LispNode ** node);
+	LispNode * parseSymbol();
 
     int parseNext();
 
-	LispNode * parseNode();
+	void parseNode();
 
     int parseKeyword(LispNode **node);
 
