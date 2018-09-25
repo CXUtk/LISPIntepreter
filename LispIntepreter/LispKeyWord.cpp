@@ -21,6 +21,9 @@ ReturnValue LispKeyWord::eval()
 			info.node = LispNode::copy(this->children[1]);
 			LispFunction::customizedFuncTable[n->getName()] = info;
 		}
+        else if(this->children[0]->Type() == "node"){
+
+        }
 	}
 	return ReturnValue(ValueType::NONE);
 }

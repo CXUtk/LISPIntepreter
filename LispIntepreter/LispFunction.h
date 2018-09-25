@@ -21,10 +21,10 @@ public:
 	ReturnValue eval() override;
 
     typedef int (*funcType)(int, int);
-	typedef struct FunctionInfo {
+	typedef struct {
 		int argNumber;
 		LispNode * node;
-	};
+	} FunctionInfo;
 
     static std::map<std::string, funcType> opFuncTable;
 	static std::map<std::string, FunctionInfo> customizedFuncTable;

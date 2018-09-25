@@ -44,11 +44,13 @@ private:
 
 	int parseSymbol(LispNode * parent, LispNode ** node);
 
-    int parseToken(LispNode * parent, LispNode **node);
+    int parseNext();
+
+	LispNode * parseNode();
 
     int parseKeyword(LispNode **node);
 
-    int appendElements(LispNode *node);
+    void appendElements(LispNode *node);
 
 	ReturnValue _eval(LispNode *node);
 

@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include "ReturnValue.h"
+#include "ParseException.h"
 
 
 class LispNode {
@@ -20,7 +21,7 @@ public:
 
     virtual void appendChild(LispNode *node) { children.push_back(node); }
 
-    virtual ReturnValue eval() { if (!children.empty()) return children[0]->eval(); }
+    virtual ReturnValue eval() { if (!children.empty()) return children[0]->eval(); else throw ParseException("Invalid Node", "Node");}
 
     virtual std::string Type() const { return "node"; }
 
