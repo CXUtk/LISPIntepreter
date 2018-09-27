@@ -29,7 +29,6 @@ public:
 
 	static LispNode * copy(LispNode * node);
 
-protected:
     std::vector<LispNode *> children;
 };
 

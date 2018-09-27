@@ -8,6 +8,7 @@
 
 std::map<std::string, LispFunction::funcType> LispFunction::opFuncTable;
 std::map<std::string, LispFunction::FunctionInfo> LispFunction::customizedFuncTable;
+std::vector<LispNode *> LispFunction::arg_context;
 
 int op_add(int a, int b) { return a + b; }
 
@@ -73,7 +74,11 @@ ReturnValue LispFunction::eval() {
 		if (n.argNumber > 0 && argumentNumber != n.argNumber) {
 			throw ParseException("Invalid argument number", "");
 		}
+		if(n.argNumber > 0){
+			arg_context.assign(children.begin(), children.end());
+		}
 		auto ret = customizedFuncTable[funcName].node->eval();
+		arg_context.clear();
 		return ret;
 	}
 	return ReturnValue(ValueType::NONE);

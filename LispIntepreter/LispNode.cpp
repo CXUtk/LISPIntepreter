@@ -12,19 +12,25 @@ LispNode * LispNode::copy(LispNode * node)
 {
 	LispNode * n = nullptr;
 	if (node->Type() == "node") {
-		n = new LispNode();
+		n = new LispNode;
 	}
 	else if (node->Type() == "name") {
 		auto p = (LispName *)node;
-		n = new LispName(p->getName());
+		auto z = new LispName(p->getName());
+		n = z;
 	}
 	else if (node->Type() == "keyword") {
 		auto p = (LispKeyWord *)node;
-		n = new LispKeyWord(*p);
+		auto z = new LispKeyWord;
+		z->setName(p->getName());
+		n = z;
 	}
 	else if (node->Type() == "function") {
 		auto p = (LispFunction *)node;
-		n = new LispFunction(*p);
+		auto z = new LispFunction;
+		z->setName(p->getName());
+		z->setArgumentNum(p->getArgumentNum());
+		n = z;
 	}
 	else if (node->Type() == "constant") {
 		auto p = (LispConstant *)node;
@@ -33,7 +39,7 @@ LispNode * LispNode::copy(LispNode * node)
 	else {
 		throw std::invalid_argument("Unknown Node type");
 	}
-	for (int i = 0; i < n->getChildrenSize(); i++) {
+	for (int i = 0; i < node->getChildrenSize(); i++) {
 		n->appendChild(LispNode::copy(node->children[i]));
 	}
 	return n;

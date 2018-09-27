@@ -86,6 +86,7 @@ LispNode * Parser::parseSymbol() {
 		auto n = new LispFunction;
 		n->setName(str);
 		appendElements(n);
+		n->setArgumentNum(n->getChildrenSize());
 		return n;
 	}
 	else {

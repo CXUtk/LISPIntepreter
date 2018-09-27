@@ -28,6 +28,7 @@ public:
 
     static std::map<std::string, funcType> opFuncTable;
 	static std::map<std::string, FunctionInfo> customizedFuncTable;
+	static std::vector<LispNode *> arg_context;
     static void setUpTable();
 	static void destroyTable();
 

@@ -22,6 +22,8 @@ public:
 
 private:
 	std::string _name;
+
+	LispNode * fixArgs(LispNode *, std::vector<std::string>&);
 };
 
 #endif

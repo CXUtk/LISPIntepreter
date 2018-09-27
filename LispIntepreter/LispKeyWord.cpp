@@ -3,6 +3,7 @@
 #include "LispName.h"
 #include "LispFunction.h"
 #include "LispConstant.h"
+#include "LispArgSlot.h"
 
 std::set<std::string> LispKeyWord::keywordTable;
 
@@ -24,20 +25,24 @@ ReturnValue LispKeyWord::eval() {
 			bool first = true;
 			std::string name;
 			int i = 0;
+            info.argNumber = 0;
+            std::vector<std::string> arg_set;
 			for (; i < n->children.size(); i++) {
-				info.argNumber = 0;
 				if (n->children[i]->Type() == "name") {
 					if (first) {
 						auto nameNode = n->children[i];
 						name = ((LispName *)(nameNode))->getName();
 						first = false;
 					}
-					else
-						info.argNumber++;
+					else {
+                        info.argNumber++;
+                        arg_set.push_back(((LispName *)(n->children[i]))->getName());
+                    }
 				}
 			}
-			assert(this->children[i]->Type() == "node");
-			info.node = LispNode::copy(this->children[i]);
+			assert(n->children[i - 1]->Type() == "node");
+			info.node = LispNode::copy(n->children[i - 1]);
+            info.node = fixArgs(info.node, arg_set);
 			LispFunction::customizedFuncTable[name] = info;
 		}
 		else {
@@ -53,5 +58,21 @@ void LispKeyWord::setUpTable() {
 	keywordTable.insert("else");
 	keywordTable.insert("let");
 	keywordTable.insert("lambda");
+}
+
+LispNode * LispKeyWord::fixArgs(LispNode * node, std::vector<std::string>& argset) {
+    for(int i = 0; i < node->getChildrenSize(); i++){
+        node->children[i] = fixArgs(node->children[i], argset);
+    }
+    if(node->Type() == "name"){
+        auto n = (LispName *)node;
+        auto name = n->getName();
+        int i = 0;
+        for(; i < argset.size(); i++){
+            if(argset[i] == name)
+                return new LispArgSlot(i);
+        }
+    }
+    return node;
 }
 
