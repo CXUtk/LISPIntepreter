@@ -28,10 +28,16 @@ ReturnValue LispKeyWord::eval() {
             info.argNumber = 0;
             std::vector<std::string> arg_set;
 			for (; i < n->children.size(); i++) {
-				if (n->children[i]->Type() == "name") {
+				if (n->children[i]->Type() == "name" || n->children[i]->Type() == "arg_slot") {
 					if (first) {
 						auto nameNode = n->children[i];
-						name = ((LispName *)(nameNode))->getName();
+                        if(nameNode->Type() == "name") {
+                            name = ((LispName *) (nameNode))->getName();
+                        }
+                        else{
+                            auto target = (LispName *)LispFunction::arg_context[((LispArgSlot*)(nameNode))->getSlot()];
+                            name = target->getName();
+                        }
 						first = false;
 					}
 					else {

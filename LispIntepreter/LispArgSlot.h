@@ -15,7 +15,8 @@ public:
 
     ReturnValue eval() override;
 
-    void setNumber(int num) { _slot = num; }
+    void setSlot(int num) { _slot = num; }
+    int getSlot() {return _slot;}
 
     std::string Type() const override { return "arg_slot"; }
 
