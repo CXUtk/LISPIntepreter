@@ -11,7 +11,7 @@ enum class ValueType {
 
 class ReturnValue {
 public:
-	explicit ReturnValue(ValueType type) : _type(type){}
+	explicit ReturnValue(ValueType type) : _type(type) {}
 	~ReturnValue();
 	void setInt(int i);
 	int getInt() const;

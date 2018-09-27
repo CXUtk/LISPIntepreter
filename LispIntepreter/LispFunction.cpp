@@ -16,15 +16,15 @@ int op_minus(int a, int b) { return a - b; }
 int op_multip(int a, int b) { return a * b; }
 
 int op_div(int a, int b) {
-    if (b == 0)
-        throw ParseException( "divide by zero", "a / b");
-    return a / b;
+	if (b == 0)
+		throw ParseException("divide by zero", "a / b");
+	return a / b;
 }
 
 int op_mod(int a, int b) {
-    if (b == 0)
-        throw ParseException("divide by zero", "a % b");
-    return a % b;
+	if (b == 0)
+		throw ParseException("divide by zero", "a % b");
+	return a % b;
 }
 
 int op_greater(int a, int b) { return a > b; }
@@ -50,24 +50,24 @@ int op_INV(int a, int b) { return ~a; }
 int op_NOT(int a, int b) { return !a; }
 
 ReturnValue LispFunction::eval() {
-    if(opFuncTable.find(funcName) != opFuncTable.end()){
-        if(argumentNumber > 0 && argumentNumber != children.size()){
-            throw ParseException("Invalid argument number", "");
-        }
+	if (opFuncTable.find(funcName) != opFuncTable.end()) {
+		if (argumentNumber > 0 && argumentNumber != children.size()) {
+			throw ParseException("Invalid argument number", "");
+		}
 		ReturnValue num = children[0]->eval();
-        if(argumentNumber == 1){
+		if (argumentNumber == 1) {
 			auto n = (*opFuncTable[funcName])(num.getInt(), 0);
 			ReturnValue ret(ValueType::INTEGER);
 			ret.setInt(n);
 			return ret;
-        }
-        for (int i = 1; i < children.size(); i++) {
+		}
+		for (int i = 1; i < children.size(); i++) {
 			auto a = num.getInt();
 			auto b = children[i]->eval().getInt();
 			num.setInt((*opFuncTable[funcName])(a, b));
-        }
-        return num;
-    }
+		}
+		return num;
+	}
 	else if (customizedFuncTable.find(funcName) != customizedFuncTable.end()) {
 		auto n = customizedFuncTable[funcName];
 		if (n.argNumber > 0 && argumentNumber != n.argNumber) {
@@ -80,22 +80,22 @@ ReturnValue LispFunction::eval() {
 }
 
 void LispFunction::setUpTable() {
-    opFuncTable["+"] = op_add;
-    opFuncTable["-"] = op_minus;
-    opFuncTable["*"] = op_multip;
-    opFuncTable["/"] = op_div;
-    opFuncTable["%"] = op_mod;
-    opFuncTable[">"] = op_greater;
-    opFuncTable["<"] = op_less;
-    opFuncTable["="] = op_eq;
-    opFuncTable["&"] = op_AND;
-    opFuncTable["|"] = op_OR;
-    opFuncTable["^"] = op_XOR;
-    opFuncTable["!"] = op_NOT;
-    opFuncTable["~"] = op_INV;
-    opFuncTable[">="] = op_GE;
-    opFuncTable["<="] = op_LE;
-    opFuncTable["!="] = op_NE;
+	opFuncTable["+"] = op_add;
+	opFuncTable["-"] = op_minus;
+	opFuncTable["*"] = op_multip;
+	opFuncTable["/"] = op_div;
+	opFuncTable["%"] = op_mod;
+	opFuncTable[">"] = op_greater;
+	opFuncTable["<"] = op_less;
+	opFuncTable["="] = op_eq;
+	opFuncTable["&"] = op_AND;
+	opFuncTable["|"] = op_OR;
+	opFuncTable["^"] = op_XOR;
+	opFuncTable["!"] = op_NOT;
+	opFuncTable["~"] = op_INV;
+	opFuncTable[">="] = op_GE;
+	opFuncTable["<="] = op_LE;
+	opFuncTable["!="] = op_NE;
 }
 
 void LispFunction::destroyTable()

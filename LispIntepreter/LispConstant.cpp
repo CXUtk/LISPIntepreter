@@ -6,7 +6,7 @@
 
 ReturnValue LispConstant::eval()
 {
-	ReturnValue ret(ValueType::INTEGER); 
-	ret.setInt(_value); 
+	ReturnValue ret(ValueType::INTEGER);
+	ret.setInt(_value);
 	return ret;
 }
