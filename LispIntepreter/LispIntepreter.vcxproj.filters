@@ -39,6 +39,9 @@
     <ClInclude Include="ReturnValue.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="EvalException.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Parser.cpp">
@@ -66,6 +69,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ReturnValue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EvalException.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
