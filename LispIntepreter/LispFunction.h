@@ -12,9 +12,9 @@
 
 class LispFunction : public LispNode {
 public:
-    LispFunction() : LispNode(), argumentNumber(-1) {}
+    LispFunction() : LispNode() {}
 
-    explicit LispFunction(int argNumber) : LispNode(), argumentNumber(argNumber) {
+    explicit LispFunction(int argNumber) : LispNode() {
 
     }
 
@@ -41,13 +41,11 @@ public:
 	std::string getName() const { return funcName; }
     void setName(const std::string &name) { funcName = name; }
 
-	int getArgumentNum() { return argumentNumber; }
-    void setArgumentNum(int num) { argumentNumber = num; }
+	int getArgumentNum() { return children.size(); }
 
     std::string Type() const override { return "function"; }
 
 private:
-    int argumentNumber;
     std::string funcName;
 };
 

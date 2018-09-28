@@ -13,55 +13,55 @@
 
 class Parser {
 public:
-    Parser();
+	Parser();
 
-    ~Parser();
+	~Parser();
 
-    void Parse(const char *str);
+	void Parse(const char *str);
 
-    void Eval();
+	void Eval();
 
-    enum {
-        PARSE_OK,
-        PARSE_NUMBER_ERROR,
-        PARSE_UNKNOWN_SYMBOL,
-        PARSE_END
-    };
+	enum {
+		PARSE_OK,
+		PARSE_NUMBER_ERROR,
+		PARSE_UNKNOWN_SYMBOL,
+		PARSE_END
+	};
 
 private:
-    const char *_code;
-    size_t _pos;
+	const char *_code;
+	size_t _pos;
 	size_t _len;
-    LispNode *_root;
-    std::stack<LispNode *> _context;
+	LispNode *_root;
+	std::stack<LispNode *> _context;
 	bool argumentMode = false;
 
 
-    void init();
+	void init();
 
-    void parseWhiteSpace();
+	void parseWhiteSpace();
 
 	LispNode* parseNumber();
 
 	LispNode * parseSymbol();
 
-    int parseNext();
+	int parseNext();
 
 	void parseNode();
 
-    int parseKeyword(LispNode **node);
+	int parseKeyword(LispNode **node);
 
-    void appendElements(LispNode *node);
+	void appendElements(LispNode *node);
 
 	ReturnValue _eval(LispNode *node);
 
-    void clearRoot();
+	void clearRoot();
 
-    void clearNode(LispNode *n);
+	void clearNode(LispNode *n);
 
-    bool isKeyword(const std::string &str);
+	bool isKeyword(const std::string &str);
 
-    // int applyToChild();
+	// int applyToChild();
 
 };
 

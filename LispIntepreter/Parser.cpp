@@ -86,7 +86,6 @@ LispNode * Parser::parseSymbol() {
 		auto n = new LispFunction;
 		n->setName(str);
 		appendElements(n);
-		n->setArgumentNum(n->getChildrenSize());
 		return n;
 	}
 	else {
@@ -146,7 +145,6 @@ void Parser::parseNode() {
 				n->setName(_code[_pos]);
 				switch (_code[_pos]) {
 				case '!':
-					n->setArgumentNum(1);
 					break;
 				default:
 					break;
@@ -175,7 +173,6 @@ void Parser::parseNode() {
 		case '~': {
 			node = new LispFunction;
 			auto n = (LispFunction *)(node);
-			n->setArgumentNum(1);
 			n->setName(_code[_pos]);
 			appendElements(n);
 			break;
@@ -211,7 +208,7 @@ void Parser::appendElements(LispNode *node) {
 	_context.push(node);
 	_pos++;
 	parseWhiteSpace();
-	while (_code[_pos] != '\0') {
+	while (_code[_pos] != '\0' && _pos < _len) {
 		parseNode();
 		if (_code[_pos] == '\0')
 			break;

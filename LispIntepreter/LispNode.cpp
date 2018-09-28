@@ -7,6 +7,7 @@
 #include "LispName.h"
 #include "LispKeyWord.h"
 #include "LispFunction.h"
+#include "LispArgSlot.h"
 
 LispNode * LispNode::copy(LispNode * node)
 {
@@ -29,12 +30,15 @@ LispNode * LispNode::copy(LispNode * node)
 		auto p = (LispFunction *)node;
 		auto z = new LispFunction;
 		z->setName(p->getName());
-		z->setArgumentNum(p->getArgumentNum());
 		n = z;
 	}
 	else if (node->Type() == "constant") {
 		auto p = (LispConstant *)node;
 		n = new LispConstant(*p);
+	}
+	else if (node->Type() == "arg_slot") {
+		auto p = (LispArgSlot *)node;
+		n = LispNode::copy(LispFunction::arg_context[p->getSlot()]);
 	}
 	else {
 		throw std::invalid_argument("Unknown Node type");

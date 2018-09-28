@@ -4,6 +4,7 @@
 
 #include "LispFunction.h"
 #include "ParseException.h"
+#include "LispArgSlot.h"
 
 
 std::map<std::string, LispFunction::funcType> LispFunction::opFuncTable;
@@ -52,11 +53,12 @@ int op_NOT(int a, int b) { return !a; }
 
 ReturnValue LispFunction::eval() {
 	if (opFuncTable.find(funcName) != opFuncTable.end()) {
-		if (argumentNumber > 0 && argumentNumber != children.size()) {
+		// 如果是已经定义的运算函数以及操作符
+		if (getArgumentNum() > 0 && (getArgumentNum() != children.size() || children.size() == 0)) {
 			throw ParseException("Invalid argument number", "");
 		}
 		ReturnValue num = children[0]->eval();
-		if (argumentNumber == 1) {
+		if (getArgumentNum() == 1) {
 			auto n = (*opFuncTable[funcName])(num.getInt(), 0);
 			ReturnValue ret(ValueType::INTEGER);
 			ret.setInt(n);
@@ -70,12 +72,21 @@ ReturnValue LispFunction::eval() {
 		return num;
 	}
 	else if (customizedFuncTable.find(funcName) != customizedFuncTable.end()) {
+		// 如果是自定义的函数
 		auto n = customizedFuncTable[funcName];
-		if (n.argNumber > 0 && argumentNumber != n.argNumber) {
+		if (n.argNumber > 0 && getArgumentNum() != n.argNumber) {
 			throw ParseException("Invalid argument number", "");
 		}
+		// 导入参数列表
 		if(n.argNumber > 0){
 			arg_context.assign(children.begin(), children.end());
+		}
+		if (n.node->children[0]->Type() == "arg_slot") {
+			auto slot = (LispArgSlot *)n.node->children[0];
+			for (int i = 1; i < n.node->getChildrenSize(); i++) {
+				arg_context[slot->getSlot()]->children.push_back(n.node->children[i]);
+
+			}
 		}
 		auto ret = customizedFuncTable[funcName].node->eval();
 		arg_context.clear();
