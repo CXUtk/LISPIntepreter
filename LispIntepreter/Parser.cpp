@@ -143,12 +143,6 @@ void Parser::parseNode() {
 			}
 			else {
 				n->setName(_code[_pos]);
-				switch (_code[_pos]) {
-				case '!':
-					break;
-				default:
-					break;
-				}
 			}
 			appendElements(n);
 			break;
@@ -219,40 +213,6 @@ void Parser::appendElements(LispNode *node) {
 
 ReturnValue Parser::_eval(LispNode *node) {
 	return node->eval();
-	/*    switch (node->type) {
-			case ValueType::EXPRESSION: {
-				return _eval(node->children[0]);
-			}
-			case ValueType::CONSTANT: {
-				return node->v.value;
-			}
-			case ValueType::OPERATOR: {
-				if (fuctionSymbolMap.find(node->v.value) == fuctionSymbolMap.end()) {
-					fprintf(stderr, "%s\n", "Invalid Operator!");
-					return 0;
-				}
-				int num = _eval(node->children[0]);
-				return (this->*fuctionSymbolMap[node->v.value])(num, 0);
-			}
-			case ValueType::M_OPERATOR: {
-				if (fuctionSymbolMap.find(node->v.value) == fuctionSymbolMap.end()) {
-					fprintf(stderr, "%s\n", "Invalid Operator!");
-					return 0;
-				}
-
-				int num = _eval(node->children[0]);
-				for (int i = 1; i < node->children.size(); i++) {
-					num = (this->*fuctionSymbolMap[node->v.value])(num, _eval(node->children[i]));
-				}
-				return num;
-			}
-			case ValueType::SYMBOL: {
-				return _eval(&_lookupTable[std::string(node->v.content)]);
-			}
-			default:
-				return 0;
-				break;
-		}*/
 }
 
 void Parser::clearRoot() {
