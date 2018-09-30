@@ -21,6 +21,8 @@ public:
 
 	void Eval();
 
+	bool checkSucceed(const std::string& str) const { return _root->eval().checkMatch(str); }
+
 	enum {
 		PARSE_OK,
 		PARSE_NUMBER_ERROR,
@@ -32,9 +34,10 @@ private:
 	const char *_code;
 	size_t _pos;
 	size_t _len;
-	LispNode *_root;
+	LispNode * _root;
 	std::stack<LispNode *> _context;
-	bool argumentMode = false;
+	bool breakSign = false;
+	bool argMode = false;
 
 
 	void init();
@@ -44,8 +47,6 @@ private:
 	LispNode* parseNumber();
 
 	LispNode * parseSymbol();
-
-	int parseNext();
 
 	void parseNode();
 
@@ -60,6 +61,8 @@ private:
 	void clearNode(LispNode *n);
 
 	bool isKeyword(const std::string &str);
+
+
 
 	// int applyToChild();
 

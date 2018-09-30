@@ -15,8 +15,10 @@ public:
 	~ReturnValue();
 	void setInt(int i);
 	int getInt() const;
+	ValueType getType() const { return _type; }
 
 	void printValue() const;
+	bool checkMatch(const std::string& str) const;
 
 private:
 	ValueType _type;

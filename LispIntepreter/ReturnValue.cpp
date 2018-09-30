@@ -26,3 +26,16 @@ void ReturnValue::printValue() const
 		printf("%d\n", _value.i);
 	}
 }
+
+bool ReturnValue::checkMatch(const std::string & str) const
+{
+	char buf[1024];
+	if (_type == ValueType::NONE)
+		sprintf(buf, "%s", "None");
+	else if (_type == ValueType::INTEGER)
+		sprintf(buf, "%d", _value.i);
+	std::string r(buf);
+	return r == str;
+}
+
+

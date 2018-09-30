@@ -79,7 +79,11 @@ LispNode * Parser::parseSymbol() {
 	if (LispKeyWord::keywordTable.find(str) != LispKeyWord::keywordTable.end()) {
 		auto n = new LispKeyWord;
 		n->setName(str);
+		if (str == "define") {
+			argMode = true;
+		}
 		appendElements(n);
+		argMode = false;
 		return n;
 	}
 	else if (LispFunction::customizedFuncTable.find(str) != LispFunction::customizedFuncTable.end()) {
@@ -172,17 +176,31 @@ void Parser::parseNode() {
 			break;
 		}
 		case '(': {
+			if (!argMode) {
+				_pos++;
+				return;
+			}
 			if (_code[_pos + 1] != ')') {
-				auto n = new LispNode;
+				auto n = new LispNode; 
 				_context.push(n);
-				appendElements(n);
+				_pos++;
+				parseWhiteSpace();
+				while (_code[_pos] != '\0' && _pos < _len) {
+					parseNode();
+					if (_code[_pos] == '\0' || breakSign) {
+						breakSign = false;
+						break;
+					}
+					parseWhiteSpace();
+				}
+				_context.pop();
 				parent->appendChild(n);
 				return;
 			}
 			break;
 		}
 		case ')': {
-			_context.pop();
+			breakSign = true;
 			_pos++;
 			return;
 		}
@@ -204,8 +222,10 @@ void Parser::appendElements(LispNode *node) {
 	parseWhiteSpace();
 	while (_code[_pos] != '\0' && _pos < _len) {
 		parseNode();
-		if (_code[_pos] == '\0')
+		if (_code[_pos] == '\0' || breakSign) {
+			breakSign = false;
 			break;
+		}
 		parseWhiteSpace();
 	}
 	_context.pop();

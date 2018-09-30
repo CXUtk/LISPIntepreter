@@ -24,6 +24,8 @@ private:
 	std::string _name;
 
 	LispNode * fixArgs(LispNode *, std::vector<std::string>&);
+	ReturnValue evalDefine();
+	ReturnValue evalIf();
 };
 
 #endif
