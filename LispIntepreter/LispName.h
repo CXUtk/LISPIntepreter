@@ -14,6 +14,12 @@ public:
 
 	std::string Type() const override { return "name"; }
 
+	std::string Description() const override {
+		static char buf[256];
+		sprintf(buf, "Name: %s", _name.c_str());
+		return std::string(buf);
+	}
+
 private:
 	std::string _name;
 };

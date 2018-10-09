@@ -62,6 +62,8 @@ private:
 
 	bool isKeyword(const std::string &str);
 
+	void displayNode(LispNode * node, int n) const;
+
 
 
 	// int applyToChild();

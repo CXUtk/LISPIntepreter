@@ -45,6 +45,12 @@ public:
 
     std::string Type() const override { return "function"; }
 
+	std::string Description() const override {
+		static char buf[256];
+		sprintf(buf, "Function: %s", funcName.c_str());
+		return std::string(buf);
+	}
+
 private:
     std::string funcName;
 };

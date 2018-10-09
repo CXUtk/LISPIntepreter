@@ -25,6 +25,10 @@ public:
 
     virtual std::string Type() const { return "node"; }
 
+	virtual std::string Description() const {
+		return "NODE";
+	}
+
 	size_t getChildrenSize() { return children.size(); }
 
 	static LispNode * copy(LispNode * node);

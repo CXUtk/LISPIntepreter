@@ -20,6 +20,12 @@ public:
 
     std::string Type() const override { return "arg_slot"; }
 
+	std::string Description() const override {
+		static char buf[256];
+		sprintf(buf, "Slot: %d", _slot);
+		return std::string(buf);
+	}
+
 private:
     int _slot;
 };

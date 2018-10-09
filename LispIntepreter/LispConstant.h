@@ -18,6 +18,12 @@ public:
     void setNumber(int num) { _value = num; }
 
     std::string Type() const override { return "constant"; }
+
+	std::string Description() const override {
+		static char buf[256];
+		sprintf(buf, "Value: %d", _value);
+		return std::string(buf);
+	}
 private:
     int _value;
 };

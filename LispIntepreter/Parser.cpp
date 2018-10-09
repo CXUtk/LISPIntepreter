@@ -32,7 +32,10 @@ void Parser::Parse(const char *str) {
 		else {
 			throw ParseException("Context stack not match", "stack");
 		}
+		displayNode(_root, 0);
+		
 		Eval();
+		displayNode(LispFunction::customizedFuncTable["f"].node, 0);
 	}
 	catch (ParseException &ex) {
 		fprintf(stderr, "%s\n", ex.what());
@@ -42,7 +45,6 @@ void Parser::Parse(const char *str) {
 
 void Parser::Eval() {
 	auto ret = _root->eval();
-	ret.printValue();
 }
 
 void Parser::parseWhiteSpace() {
@@ -83,7 +85,6 @@ LispNode * Parser::parseSymbol() {
 			argMode = true;
 		}
 		appendElements(n);
-		argMode = false;
 		return n;
 	}
 	else if (LispFunction::customizedFuncTable.find(str) != LispFunction::customizedFuncTable.end()) {
@@ -200,6 +201,9 @@ void Parser::parseNode() {
 			break;
 		}
 		case ')': {
+			if(argMode){
+				argMode = false;
+			}
 			breakSign = true;
 			_pos++;
 			return;
@@ -245,6 +249,17 @@ void Parser::clearNode(LispNode *n) {
 
 bool Parser::isKeyword(const std::string &str) {
 	return false;
+}
+
+void Parser::displayNode(LispNode * node, int n) const
+{
+	for (int i = 0; i < n * 4; i++) {
+		printf(" ");
+	}
+	printf("(%s) [%s]\n", node->Type().c_str(), node->Description().c_str());
+	for (int i = 0; i < node->getChildrenSize(); i++) {
+		displayNode(node->children[i], n + 1);
+	}
 }
 
 void Parser::init() {
