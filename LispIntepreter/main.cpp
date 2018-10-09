@@ -1,4 +1,5 @@
 #include "Parser.h"
+#include "Lexical.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -36,6 +37,8 @@ void test() {
 	testfor("/ (* 12 6) 0", "Error");
 	testfor("define (f x y z) (* x y z)", "None");
 	testfor("f 1 2 3", "6");
+	testfor("define (g x y) (define (h z) (+ z y x))", "None");
+	testfor("((g 10 10) 3)", "23");
 	testfor("if (< 1 2) (+ 9 9) (- 9 9)", "18");
 	//testfor("f 9", "729");
 
@@ -46,12 +49,12 @@ int main(int argc, char ** argv) {
 	//printf("%s\n", ">>>");
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
- 	 char buffer[] = "define (f x) (if (= x 0) (1) (* (f (- x 1) x)))";
+	char buffer[] = "(define (f x) (if (= x 0) (1) (* (f (- x 1) x))))";
 	// char buffer[] = "if (< 1 2) (+ 8 9)";
 	char buffer1[] = "f 9";
-	Parser parser;
-	parser.Parse(buffer);
-	parser.Parse(buffer1);
+	Lexical lex;
+	lex.Parse(buffer);
+	lex.Display();
 	//test();
 	getchar();
 	return 0;
