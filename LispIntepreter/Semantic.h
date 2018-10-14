@@ -13,15 +13,18 @@
 class Semantic
 {
 public:
-	Semantic(const Lexical& lex);
+	Semantic();
 	~Semantic();
 
-	void Analyze();
+	void Analyze(const Lexical& lex);
 	void Display() const;
 
 private:
 	LispNode * _root;
 	LispNode * _analyzedRoot;
+	std::vector<LispNode *> _context;
+
+	LispNode * _analyze();
 
 };
 #endif

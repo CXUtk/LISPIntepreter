@@ -17,6 +17,8 @@ public:
 
     void setNumber(int num) { _value = num; }
 
+	int getNumber() { return _value; }
+
     std::string Type() const override { return "constant"; }
 
 	std::string Description() const override {

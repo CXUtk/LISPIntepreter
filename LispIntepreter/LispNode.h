@@ -33,6 +33,8 @@ public:
 
 	static LispNode * copy(LispNode * node);
 
+	static void display(LispNode * node, int n);
+
     std::vector<LispNode *> children;
 };
 

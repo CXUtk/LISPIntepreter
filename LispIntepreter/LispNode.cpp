@@ -48,3 +48,14 @@ LispNode * LispNode::copy(LispNode * node)
 	}
 	return n;
 }
+
+void LispNode::display(LispNode * node, int n)
+{
+	for (int i = 0; i < n * 4; i++) {
+		printf("-");
+	}
+	printf("(%s) [%s]\n", node->Type().c_str(), node->Description().c_str());
+	for (int i = 0; i < node->getChildrenSize(); i++) {
+		display(node->children[i], n + 1);
+	}
+}

@@ -18,6 +18,7 @@ public:
 
 	void Parse(const char *str);
 	void Display() const;
+	LispNode * GetRoot() const { return _root; }
 
 private:
 	const char *_code;

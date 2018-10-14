@@ -1,5 +1,6 @@
 #include "Parser.h"
 #include "Lexical.h"
+#include "Semantic.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -49,12 +50,18 @@ int main(int argc, char ** argv) {
 	//printf("%s\n", ">>>");
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
-	char buffer[] = "(define (f x) (if (= x 0) (1) (* (f (- x 1) x))))";
-	// char buffer[] = "if (< 1 2) (+ 8 9)";
-	char buffer1[] = "f 9";
+	//char buffer[] = "(define (f x) (if (= x 0) (1) (* (f (- x 1) x))))";
+	char buffer[] = "(+ 8 9)";
+	//char buffer1[] = "f 9";
 	Lexical lex;
 	lex.Parse(buffer);
 	lex.Display();
+
+	printf("\n");
+
+	Semantic sem;
+	sem.Analyze(lex);
+	sem.Display();
 	//test();
 	getchar();
 	return 0;
