@@ -50,9 +50,11 @@ int main(int argc, char ** argv) {
 	//printf("%s\n", ">>>");
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
-	//char buffer[] = "(define (f x) (if (= x 0) (1) (* (f (- x 1) x))))";
-	char buffer[] = "(+ 8 9)";
+	char buffer[] = "(define (f x) (if (= x 0) (1) (* (f (- x 1) x))))";
+	// char buffer[] = "(define (f x y z) (* x y z))";
 	//char buffer1[] = "f 9";
+
+
 	Lexical lex;
 	lex.Parse(buffer);
 	lex.Display();

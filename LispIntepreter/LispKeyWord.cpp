@@ -47,7 +47,7 @@ LispNode * LispKeyWord::fixArgs(LispNode * node, std::vector<std::string>& argse
 
 ReturnValue LispKeyWord::evalDefine()
 {
-	LispFunction::FunctionInfo info;
+	FunctionInfo info;
 	if (this->children[0]->Type() == "name") {
 		auto n = (LispName *)(this->children[0]);
 		info.argNumber = 0;

@@ -9,6 +9,11 @@
 #include <map>
 #include "LispNode.h"
 
+typedef struct {
+	int argNumber;
+	LispNode * node;
+} FunctionInfo;
+
 
 class LispFunction : public LispNode {
 public:
@@ -21,10 +26,7 @@ public:
 	ReturnValue eval() override;
 
     typedef int (*funcType)(int, int);
-	typedef struct {
-		int argNumber;
-		LispNode * node;
-	} FunctionInfo;
+
 
     static std::map<std::string, funcType> opFuncTable;
 	static std::map<std::string, FunctionInfo> customizedFuncTable;
