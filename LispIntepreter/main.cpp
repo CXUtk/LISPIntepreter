@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include <string.h>
 
-// ²âÊÔÓÃ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 /*
-	ÇóÖµË³Ðò£º ºó×º (+ 2 2) -> 2 + 2
-	±í´ïÊ½ÇóÖµ£ºÓ¦ÓÃÐò ( expr ( <expr> ) ) -> (expr value)
-	º¯ÊýÉùÃ÷¹æÔò£ºdefine ( <º¯ÊýÃû> <arg1> <arg2> ... ) ( <º¯Êý±¾Ìå> )
-	º¯Êýµ÷ÓÃ¹æÔò£º( <º¯Êý>  <arg1> <arg2> ... )
+	ï¿½ï¿½ÖµË³ï¿½ï¿½ ï¿½ï¿½×º (+ 2 2) -> 2 + 2
+	ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Öµï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ ( expr ( <expr> ) ) -> (expr value)
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½define ( <ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½> <arg1> <arg2> ... ) ( <ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½> )
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½( <ï¿½ï¿½ï¿½ï¿½>  <arg1> <arg2> ... )
 */
 
 static int maxTest = 0;
@@ -50,8 +50,8 @@ int main(int argc, char ** argv) {
 	//printf("%s\n", ">>>");
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
-	char buffer[] = "(define (f x) (if (= x 0) (1) (* (f (- x 1) x))))";
-	// char buffer[] = "(define (f x y z) (* x y z))";
+	// char buffer[] = "( define (f x) ( if (= x 0) (1) ( * (f (- x 1)) x) ) )";
+	char buffer[] = "(define (g x y) (define (h z) (+ z y x)))";
 	//char buffer1[] = "f 9";
 
 

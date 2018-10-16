@@ -3,7 +3,6 @@
 //
 
 #include "ParseException.h"
-#include <Windows.h>
 
 const char *ParseException::what() const _NOEXCEPT {
     static char buffer[4096];

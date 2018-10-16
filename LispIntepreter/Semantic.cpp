@@ -41,7 +41,9 @@ LispNode * Semantic::_analyze()
 	LispNode * node = _context.back();
 	if (node->Type() == "node") {
 		_context.push_back(node->children[0]);
-		return _analyze();
+		auto ret = _analyze();
+		_context.pop_back();
+		return ret;
 	}
 	else if (node->Type() == "name") {
 		LispName * lispName = (LispName *) node;
@@ -64,7 +66,7 @@ LispNode * Semantic::_analyze()
 						LispFunction::customizedFuncTable[funcName->getName()] = info;
 					}
 					else {
-						LispNode * args = new LispNode;
+						auto args = new LispNode;
 						_context.push_back(prevNode->children[i]);
 						args->appendChild(_analyze());
 						n->appendChild(args);
@@ -79,7 +81,6 @@ LispNode * Semantic::_analyze()
 					_context.pop_back();
 				}
 			}
-			_context.pop_back();
 			// TODO: appendElements(n);
 			return n;
 		}
@@ -96,7 +97,6 @@ LispNode * Semantic::_analyze()
 					_context.pop_back();
 				}
 			}
-			_context.pop_back();
 			// TODO: appendElements(n);
 			return n;
 		}
