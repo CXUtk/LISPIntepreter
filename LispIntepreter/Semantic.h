@@ -23,6 +23,7 @@ private:
 	LispNode * _root;
 	LispNode * _analyzedRoot;
 	std::vector<LispNode *> _context;
+	std::vector<std::vector<std::string>> _localNameTable;
 
 	LispNode * _analyze();
 

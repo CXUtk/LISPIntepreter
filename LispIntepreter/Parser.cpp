@@ -3,7 +3,8 @@
 #include "LispConstant.h"
 #include "LispKeyWord.h"
 #include "LispName.h"
-
+#include "Lexical.h"
+#include "Semantic.h"
 
 Parser::Parser() : _pos(0), _code(nullptr) {
 	init();
@@ -16,26 +17,12 @@ Parser::~Parser() {
 }
 
 void Parser::Parse(const char *str) {
-	clearRoot();
-	_root = nullptr;
-	_code = str;
-	_pos = 0;
-	_len = strlen(_code);
-	parseWhiteSpace();
 	try {
-		_context.push(new LispNode);
-		parseNode();
-		if (_context.size() == 1) {
-			_root = _context.top();
-			_context.pop();
-		}
-		else {
-			throw ParseException("Context stack not match", "stack");
-		}
-		displayNode(_root, 0);
-		
-		Eval();
-		displayNode(LispFunction::customizedFuncTable["f"].node, 0);
+		Lexical lex;
+		lex.Parse(str);
+		Semantic sem;
+		sem.Analyze(lex);
+		sem.Display();
 	}
 	catch (ParseException &ex) {
 		fprintf(stderr, "%s\n", ex.what());

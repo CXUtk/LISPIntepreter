@@ -45,51 +45,33 @@ LispNode * LispKeyWord::fixArgs(LispNode * node, std::vector<std::string>& argse
     return node;
 }
 
-ReturnValue LispKeyWord::evalDefine()
-{
+ReturnValue LispKeyWord::evalDefine() {
+	assert(this->children[0]->Type() == "node");
 	FunctionInfo info;
-	if (this->children[0]->Type() == "name") {
-		auto n = (LispName *)(this->children[0]);
-		info.argNumber = 0;
-		info.node = LispNode::copy(this->children[1]);
-		LispFunction::customizedFuncTable[n->getName()] = info;
-	}
-	else if (this->children[0]->Type() == "node") {
-		// µÚÒ»¸önode×Ó½ÚµãÊÇº¯Êý²ÎÊý
-		auto n = this->children[0];
-		bool first = true;
-		std::string name;
-		int i = 0;
-		info.argNumber = 0;
-		std::vector<std::string> arg_set;
-		for (; i < n->children.size(); i++) {
-			if (n->children[i]->Type() == "name" || n->children[i]->Type() == "arg_slot") {
-				if (first) {
-					auto nameNode = n->children[i];
-					if (nameNode->Type() == "name") {
-						name = ((LispName *)(nameNode))->getName();
-					}
-					else {
-						auto target = (LispName *)LispFunction::arg_context[((LispArgSlot*)(nameNode))->getSlot()];
-						name = target->getName();
-					}
-					first = false;
-				}
-				else {
-					info.argNumber++;
-					arg_set.push_back(((LispName *)(n->children[i]))->getName());
+	// ï¿½ï¿½Ò»ï¿½ï¿½nodeï¿½Ó½Úµï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	auto n = this->children[0];
+	std::string name;
+	int i = 0;
+	info.argNumber = 0;
+	std::vector<std::string> arg_set;
+	for (; i < n->children.size(); i++) {
+		if (n->children[i]->Type() == "name" || n->children[i]->Type() == "arg_slot") {
+			if (i == 0) {
+				auto nameNode = n->children[i];
+				if (nameNode->Type() == "name") {
+					name = ((LispName *) (nameNode))->getName();
 				}
 			}
+			else {
+				arg_set.push_back(((LispName *) (n->children[i]))->getName());
+			}
 		}
-		// µÚ¶þ¸ö×Ó½ÚµãÊÇº¯ÊýÖ÷Ìå
-		assert(this->children[1]->Type() == "node");
-		info.node = LispNode::copy(this->children[1]);
-		info.node = fixArgs(info.node, arg_set);
-		LispFunction::customizedFuncTable[name] = info;
 	}
-	else {
-		throw;
-	}
+	// ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½Ó½Úµï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	assert(this->children[1]->Type() == "node");
+	info.node = LispNode::copy(this->children[1]);
+	info.node = fixArgs(info.node, arg_set);
+	LispFunction::customizedFuncTable[name].node = info.node;
 	return ReturnValue(ValueType::NONE);
 }
 

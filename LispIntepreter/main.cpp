@@ -50,9 +50,9 @@ int main(int argc, char ** argv) {
 	//printf("%s\n", ">>>");
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
-	// char buffer[] = "( define (f x) ( if (= x 0) (1) ( * (f (- x 1)) x) ) )";
-	char buffer[] = "(define (g x y) (define (h z) (+ z y x)))";
-	//char buffer1[] = "f 9";
+	char buffer[] = "( define (f x) ( if (= x 0) (1) ( * (f (- x 1)) x) ) )";
+	// char buffer[] = "(- 10 (* 3 3) 1)";
+	char buffer1[] = "(f 2)";
 
 
 	Lexical lex;
@@ -64,6 +64,8 @@ int main(int argc, char ** argv) {
 	Semantic sem;
 	sem.Analyze(lex);
 	sem.Display();
+	Parser parser;
+	parser.Parse(buffer1);
 	//test();
 	getchar();
 	return 0;

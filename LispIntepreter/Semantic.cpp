@@ -34,6 +34,8 @@ void Semantic::Analyze(const Lexical& lex)
 void Semantic::Display() const
 {
 	LispNode::display(_analyzedRoot, 0);
+	auto ret = _analyzedRoot->eval();
+	ret.printValue();
 }
 
 LispNode * Semantic::_analyze()
