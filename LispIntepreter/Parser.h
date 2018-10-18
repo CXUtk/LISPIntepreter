@@ -21,7 +21,7 @@ public:
 
 	void Eval();
 
-	bool checkSucceed(const std::string& str) const { return _root->eval().checkMatch(str); }
+	bool checkSucceed(const char *code, const std::string &str) const;
 
 	enum {
 		PARSE_OK,
@@ -34,7 +34,7 @@ private:
 	const char *_code;
 	size_t _pos;
 	size_t _len;
-	LispNode * _root;
+
 	std::stack<LispNode *> _context;
 	bool breakSign = false;
 	bool argMode = false;

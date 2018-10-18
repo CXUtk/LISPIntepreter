@@ -8,7 +8,7 @@
 
 Parser::Parser() : _pos(0), _code(nullptr) {
 	init();
-	_root = new LispNode;
+    //_root = new LispNode;
 }
 
 
@@ -18,6 +18,7 @@ Parser::~Parser() {
 
 void Parser::Parse(const char *str) {
 	try {
+        _code = str;
 		Lexical lex;
 		lex.Parse(str);
 		Semantic sem;
@@ -31,7 +32,7 @@ void Parser::Parse(const char *str) {
 }
 
 void Parser::Eval() {
-	auto ret = _root->eval();
+    //auto ret = _root->eval();
 }
 
 void Parser::parseWhiteSpace() {
@@ -227,7 +228,7 @@ ReturnValue Parser::_eval(LispNode *node) {
 }
 
 void Parser::clearRoot() {
-	delete _root;
+    // delete _root;
 }
 
 void Parser::clearNode(LispNode *n) {
@@ -254,6 +255,21 @@ void Parser::init() {
 	LispKeyWord::setUpTable();
 }
 
+bool Parser::checkSucceed(const char *code, const std::string &str) const {
+    try {
+        Lexical lex;
+        lex.Parse(code);
+        Semantic sem;
+        sem.Analyze(lex);
+        auto res = sem.GetRoot()->eval();
+        res.printValue();
+        return res.checkMatch(str);
+    }
+    catch (ParseException &ex) {
+        fprintf(stderr, "%s\n", ex.what());
+    }
+    return false;
+}
 
 
 bool isWhiteSpace(char c) {

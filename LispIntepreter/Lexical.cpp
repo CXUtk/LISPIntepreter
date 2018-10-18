@@ -15,13 +15,27 @@ Lexical::Lexical() : _code(nullptr), _pos(0), _len(0)
 
 Lexical::~Lexical()
 {
+    while (!_context.empty()) {
+        free(_context.top());
+        _context.pop();
+    }
+    delete _code;
 	delete _root;
 }
 
 void Lexical::Parse(const char * str)
 {
-	_code = str;
-	_len = strlen(str);
+    if (str[0] == '(')
+        _code = strdup(str);
+    else {
+        int len = strlen(str);
+        _code = new char[len + 3];
+        _code[0] = '(';
+        memcpy(_code + 1, str, sizeof(char) * len);
+        _code[len + 1] = ')';
+        _code[len + 2] = '\0';
+    }
+    _len = strlen(_code);
 	_pos = 0;
 	_root = new LispNode;
 	_context.push(_root);
@@ -30,10 +44,6 @@ void Lexical::Parse(const char * str)
 	}
 	_context.pop();
 	if (!_context.empty()) {
-		while (!_context.empty()) {
-			free(_context.top());
-			_context.pop();
-		}
 		throw ParseException("Stack", "Stack is not empty at end");
 	}
 }

@@ -21,7 +21,7 @@ public:
 	LispNode * GetRoot() const { return _root; }
 
 private:
-	const char *_code;
+    char *_code;
 	size_t _pos;
 	size_t _len;
 	LispNode * _root;

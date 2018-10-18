@@ -21,10 +21,11 @@ void testfor(const std::string& code, const std::string& ans) {
 	maxTest++;
 	try {
 		Parser parser;
-		parser.Parse(buffer);
-		if (parser.checkSucceed(ans)) {
+        if (parser.checkSucceed(buffer, ans)) {
 			succeedTest++;
-		}
+		} else {
+            fprintf(stderr, "Failed: %s, Should be: %s\n", code.c_str(), ans.c_str());
+        }
 	}
 	catch (ParseException &ex) {
 		fprintf(stderr, "%s\n", ex.what());
@@ -52,7 +53,7 @@ int main(int argc, char ** argv) {
 	//fgets(buffer, 1024, stdin);
 	char buffer[] = "( define (f x) ( if (= x 0) (1) ( * (f (- x 1)) x) ) )";
 	// char buffer[] = "(- 10 (* 3 3) 1)";
-    char buffer1[] = "(f 2403)";
+    char buffer1[] = "(f 4)";
 
 
 	Lexical lex;
@@ -66,7 +67,7 @@ int main(int argc, char ** argv) {
 	sem.Display();
 	Parser parser;
 	parser.Parse(buffer1);
-	//test();
+    test();
 	getchar();
 	return 0;
 }
