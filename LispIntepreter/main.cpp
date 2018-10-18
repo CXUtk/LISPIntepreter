@@ -52,7 +52,7 @@ int main(int argc, char ** argv) {
 	//fgets(buffer, 1024, stdin);
 	char buffer[] = "( define (f x) ( if (= x 0) (1) ( * (f (- x 1)) x) ) )";
 	// char buffer[] = "(- 10 (* 3 3) 1)";
-	char buffer1[] = "(f 2)";
+    char buffer1[] = "(f 2403)";
 
 
 	Lexical lex;

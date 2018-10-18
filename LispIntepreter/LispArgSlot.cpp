@@ -6,5 +6,5 @@
 #include "LispFunction.h"
 
 ReturnValue LispArgSlot::eval() {
-    return LispFunction::arg_context[_slot]->eval();
+    return LispFunction::arg_context[LispFunction::arg_context.size() - _slot - 1]->eval();
 }

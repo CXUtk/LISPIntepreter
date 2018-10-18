@@ -13,6 +13,8 @@ class LispConstant : public LispNode {
 public:
     LispConstant() : _value(0) {}
 
+	LispConstant(int v) : _value(v) {}
+
 	ReturnValue eval() override;
 
     void setNumber(int num) { _value = num; }

@@ -39,7 +39,7 @@ LispNode * LispKeyWord::fixArgs(LispNode * node, std::vector<std::string>& argse
         int i = 0;
         for(; i < argset.size(); i++){
             if(argset[i] == name)
-                return new LispArgSlot(i);
+                return new LispArgSlot(argset.size() - i - 1);
         }
     }
     return node;
@@ -72,6 +72,7 @@ ReturnValue LispKeyWord::evalDefine() {
 	info.node = LispNode::copy(this->children[1]);
 	info.node = fixArgs(info.node, arg_set);
 	LispFunction::customizedFuncTable[name].node = info.node;
+    LispNode::display(info.node, 0);
 	return ReturnValue(ValueType::NONE);
 }
 

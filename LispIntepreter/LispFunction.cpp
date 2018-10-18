@@ -5,6 +5,7 @@
 #include "LispFunction.h"
 #include "ParseException.h"
 #include "LispArgSlot.h"
+#include "LispConstant.h"
 
 
 std::map<std::string, LispFunction::funcType> LispFunction::opFuncTable;
@@ -53,7 +54,7 @@ int op_NOT(int a, int b) { return !a; }
 
 ReturnValue LispFunction::eval() {
 	if (opFuncTable.find(funcName) != opFuncTable.end()) {
-		// Èç¹ûÊÇÒÑ¾­¶¨ÒåµÄÔËËãº¯ÊýÒÔ¼°²Ù×÷·û
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ãº¯ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (getArgumentNum() > 0 && (getArgumentNum() != children.size() || children.size() == 0)) {
 			throw ParseException("Invalid argument number", "");
 		}
@@ -72,24 +73,26 @@ ReturnValue LispFunction::eval() {
 		return num;
 	}
 	else if (customizedFuncTable.find(funcName) != customizedFuncTable.end()) {
-		// Èç¹ûÊÇ×Ô¶¨ÒåµÄº¯Êý
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½
 		auto n = customizedFuncTable[funcName];
 		if (n.argNumber > 0 && getArgumentNum() != n.argNumber) {
 			throw ParseException("Invalid argument number", "");
 		}
-		// µ¼Èë²ÎÊýÁÐ±í
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 		if(n.argNumber > 0){
-			arg_context.assign(children.begin(), children.end());
-		}
-		if (n.node->children[0]->Type() == "arg_slot") {
-			auto slot = (LispArgSlot *)n.node->children[0];
-			for (int i = 1; i < n.node->getChildrenSize(); i++) {
-				arg_context[slot->getSlot()]->children.push_back(n.node->children[i]);
-
+			for (auto c : children) {
+				if (c->Type() == "function") {
+					auto ret = c->eval();
+					if (ret.getType() == ValueType::INTEGER) {
+						c = new LispConstant(ret.getInt());
+					}
+				}
+				arg_context.push_back(c);
 			}
 		}
 		auto ret = customizedFuncTable[funcName].node->eval();
-		arg_context.clear();
+		for (int i = 0; i < getChildrenSize(); i++)
+			arg_context.pop_back();
 		return ret;
 	}
 	return ReturnValue(ValueType::NONE);
