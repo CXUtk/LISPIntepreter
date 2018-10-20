@@ -25,6 +25,7 @@ Lexical::~Lexical()
 
 void Lexical::Parse(const char * str)
 {
+	// 如果开头没有括号就要加上括号
     if (str[0] == '(')
         _code = strdup(str);
     else {
