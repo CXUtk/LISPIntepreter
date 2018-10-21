@@ -36,9 +36,6 @@
     <ClInclude Include="LispName.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ReturnValue.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="EvalException.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -49,6 +46,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Semantic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Deleter.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,9 +77,6 @@
     <ClCompile Include="LispName.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ReturnValue.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="EvalException.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -90,6 +87,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Semantic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Deleter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

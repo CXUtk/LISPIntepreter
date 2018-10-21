@@ -23,7 +23,7 @@ public:
 
     }
 
-	ReturnValue eval() override;
+	LispNode * eval() override;
 
     typedef int (*funcType)(int, int);
 

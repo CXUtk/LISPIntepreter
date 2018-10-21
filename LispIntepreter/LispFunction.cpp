@@ -6,6 +6,7 @@
 #include "ParseException.h"
 #include "LispArgSlot.h"
 #include "LispConstant.h"
+#include "Deleter.h"
 
 
 std::map<std::string, LispFunction::funcType> LispFunction::opFuncTable;
@@ -52,23 +53,27 @@ int op_INV(int a, int b) { return ~a; }
 
 int op_NOT(int a, int b) { return !a; }
 
-ReturnValue LispFunction::eval() {
+LispNode * LispFunction::eval() {
 	if (opFuncTable.find(funcName) != opFuncTable.end()) {
 		// ������Ѿ���������㺯���Լ�������
 		if (getArgumentNum() > 0 && (getArgumentNum() != children.size() || children.size() == 0)) {
 			throw ParseException("Invalid argument number", "");
 		}
-		ReturnValue num = children[0]->eval();
+		LispNode * n = children[0]->eval();
+		if (n->Type() != "constant") {
+			throw ParseException("Invalid operation", "Eval: cannot use math operations with non-constant node");
+		}
+		LispConstant * num = (LispConstant *)n;
 		if (getArgumentNum() == 1) {
-			auto n = (*opFuncTable[funcName])(num.getInt(), 0);
-			ReturnValue ret(ValueType::INTEGER);
-			ret.setInt(n);
-			return ret;
+			auto n = (*opFuncTable[funcName])(num->getNumber(), 0);
+			LispConstant * res = (LispConstant *)Deleter::getCopy(this);
+			res->setNumber(n);
+			return res;
 		}
 		for (int i = 1; i < children.size(); i++) {
-			auto a = num.getInt();
-			auto b = children[i]->eval().getInt();
-			num.setInt((*opFuncTable[funcName])(a, b));
+			auto a = num->getNumber();
+			auto b = (LispConstant *)children[i]->eval();
+			num->setNumber((*opFuncTable[funcName])(a, b->getNumber()));
 		}
 		return num;
 	}
@@ -83,8 +88,8 @@ ReturnValue LispFunction::eval() {
 			for (auto c : children) {
 				if (c->Type() == "function") {
 					auto ret = c->eval();
-					if (ret.getType() == ValueType::INTEGER) {
-						c = new LispConstant(ret.getInt());
+					if (ret->Type() == "constant") {
+						c = new LispConstant(*(LispConstant *)ret);
 					}
 				}
 				arg_context.push_back(c);
@@ -95,7 +100,7 @@ ReturnValue LispFunction::eval() {
 			arg_context.pop_back();
 		return ret;
 	}
-	return ReturnValue(ValueType::NONE);
+	return this;
 }
 
 void LispFunction::setUpTable() {

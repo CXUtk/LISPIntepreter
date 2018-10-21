@@ -1,8 +1,10 @@
 #include "Parser.h"
 #include "Lexical.h"
 #include "Semantic.h"
+#include "Deleter.h"
 #include <stdio.h>
 #include <string.h>
+
 
 // ������
 
@@ -51,23 +53,14 @@ int main(int argc, char ** argv) {
 	//printf("%s\n", ">>>");
 	//char buffer[1024];
 	//fgets(buffer, 1024, stdin);
-	char buffer[] = "( define (f x) ( if (= x 0) (1) ( * (f (- x 1)) x) ) )";
+	char buffer[] = " * 9 9 ";
 	// char buffer[] = "(- 10 (* 3 3) 1)";
-    char buffer1[] = "(f 4)";
+   // char buffer1[] = "(f 4)";
 
-
-	Lexical lex;
-	lex.Parse(buffer);
-	lex.Display();
-
-	printf("\n");
-
-	Semantic sem;
-	sem.Analyze(lex);
-	sem.Display();
 	Parser parser;
-	parser.Parse(buffer1);
+	parser.Parse(buffer);
     test();
+	Deleter::Clear();
 	getchar();
 	return 0;
 }

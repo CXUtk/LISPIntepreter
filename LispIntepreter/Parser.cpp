@@ -223,7 +223,7 @@ void Parser::appendElements(LispNode *node) {
 	_context.pop();
 }
 
-ReturnValue Parser::_eval(LispNode *node) {
+LispNode * Parser::_eval(LispNode *node) {
 	return node->eval();
 }
 
@@ -256,19 +256,21 @@ void Parser::init() {
 }
 
 bool Parser::checkSucceed(const char *code, const std::string &str) const {
+	LispNode * res = nullptr;
+	Lexical lex;
+	Semantic sem;
     try {
-        Lexical lex;
         lex.Parse(code);
-        Semantic sem;
         sem.Analyze(lex);
-        auto res = sem.GetRoot()->eval();
-        res.printValue();
-        return res.checkMatch(str);
+		sem.Display();
+        res = sem.GetRoot()->eval();
+		res->getVal();
     }
     catch (ParseException &ex) {
         fprintf(stderr, "%s\n", ex.what());
     }
-    return false;
+	return LispNode::checkMatch(res, str);
+
 }
 
 

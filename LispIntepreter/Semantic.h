@@ -31,7 +31,7 @@ public:
 	void Analyze(const Lexical& lex);
 	void Display() const;
 
-	LispNode *GetRoot() const { return _root; }
+	LispNode *GetRoot() const { return _analyzedRoot; }
 
 private:
 	LispNode * _root;

@@ -11,14 +11,14 @@ std::set<std::string> LispKeyWord::keywordTable;
 LispKeyWord::LispKeyWord() : LispNode() {
 }
 
-ReturnValue LispKeyWord::eval() {
+LispNode * LispKeyWord::eval() {
 	if (this->_name == "define") {
 		return evalDefine();
 	}
 	else if (this->_name == "if") {
 		return evalIf();
 	}
-	return ReturnValue(ValueType::NONE);
+	return this;
 }
 
 void LispKeyWord::setUpTable() {
@@ -45,7 +45,7 @@ LispNode * LispKeyWord::fixArgs(LispNode * node, std::vector<std::string>& argse
     return node;
 }
 
-ReturnValue LispKeyWord::evalDefine() {
+LispNode * LispKeyWord::evalDefine() {
 	assert(this->children[0]->Type() == "node");
 	FunctionInfo info;
 	// ��һ��node�ӽڵ��Ǻ�������
@@ -73,14 +73,14 @@ ReturnValue LispKeyWord::evalDefine() {
 	info.node = fixArgs(info.node, arg_set);
 	LispFunction::customizedFuncTable[name].node = info.node;
     LispNode::display(info.node, 0);
-	return ReturnValue(ValueType::NONE);
+	return this;
 }
 
-ReturnValue LispKeyWord::evalIf()
+LispNode * LispKeyWord::evalIf()
 {
 	if (this->children.size() >= 2 && this->children[0]->Type() == "function") {
 		auto ret = this->children[0]->eval();
-		if (ret.getType() == ValueType::INTEGER && ret.getInt() != 0) {
+		if (ret->Type() == "constant" && ((LispConstant *)(ret)) ->getNumber() != 0) {
 			return this->children[1]->eval();
 		}
 		if (this->children.size() > 2) {

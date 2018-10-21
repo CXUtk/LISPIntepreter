@@ -15,11 +15,11 @@ public:
 
 	LispConstant(int v) : _value(v) {}
 
-	ReturnValue eval() override;
+	LispNode * eval() override;
 
     void setNumber(int num) { _value = num; }
 
-	int getNumber() { return _value; }
+	int getNumber() const { return _value; }
 
     std::string Type() const override { return "constant"; }
 
@@ -28,6 +28,9 @@ public:
 		sprintf(buf, "Value: %d", _value);
 		return std::string(buf);
 	}
+
+	std::string getVal() const override;
+
 private:
     int _value;
 };

@@ -8,7 +8,7 @@ class LispName : public LispNode
 public:
 	LispName(const std::string& s) : _name(s) {}
 
-	ReturnValue eval() override { return ReturnValue(ValueType::NONE); }
+	LispNode * eval() override { return this; }
 
 	std::string getName() { return _name; }
 

@@ -5,6 +5,6 @@
 #include "LispArgSlot.h"
 #include "LispFunction.h"
 
-ReturnValue LispArgSlot::eval() {
+LispNode * LispArgSlot::eval() {
     return LispFunction::arg_context[LispFunction::arg_context.size() - _slot - 1]->eval();
 }

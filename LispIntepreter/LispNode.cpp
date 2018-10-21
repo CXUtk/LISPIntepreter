@@ -9,6 +9,18 @@
 #include "LispFunction.h"
 #include "LispArgSlot.h"
 
+bool LispNode::checkMatch(LispNode * node, const std::string & str)
+{
+	if (!node) {
+		return str == "Error";
+	}
+	char buf[1024];
+	if (!node) {
+		return str == "None";
+	}
+	return str == node->getVal();
+}
+
 LispNode * LispNode::copy(LispNode * node)
 {
 	LispNode * n = nullptr;

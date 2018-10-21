@@ -13,7 +13,7 @@ class LispArgSlot : public LispNode {
 public:
     explicit LispArgSlot(int slot) : _slot(slot) {}
 
-    ReturnValue eval() override;
+	LispNode * eval() override;
 
     void setSlot(int num) { _slot = num; }
     int getSlot() {return _slot;}

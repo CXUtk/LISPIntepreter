@@ -4,9 +4,12 @@
 
 #include "LispConstant.h"
 
-ReturnValue LispConstant::eval()
+LispNode * LispConstant::eval()
 {
-	ReturnValue ret(ValueType::INTEGER);
-	ret.setInt(_value);
-	return ret;
+	return this;
+}
+
+std::string LispConstant::getVal() const
+{
+	return std::to_string(this->getNumber());
 }

@@ -54,7 +54,7 @@ private:
 
 	void appendElements(LispNode *node);
 
-	ReturnValue _eval(LispNode *node);
+	LispNode * _eval(LispNode *node);
 
 	void clearRoot();
 

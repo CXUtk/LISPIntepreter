@@ -8,9 +8,9 @@
 
 #include <vector>
 #include <string>
-#include "ReturnValue.h"
 #include "ParseException.h"
 
+class LispConstant;
 
 class LispNode {
 public:
@@ -21,7 +21,7 @@ public:
 
     virtual void appendChild(LispNode *node) { children.push_back(node); }
 
-    virtual ReturnValue eval() { if (!children.empty()) return children[0]->eval(); else throw ParseException("Invalid Node", "Node");}
+    virtual LispNode * eval() { if (!children.empty()) return children[0]->eval(); else throw ParseException("Invalid Node", "Node");}
 
     virtual std::string Type() const { return "node"; }
 
@@ -29,11 +29,21 @@ public:
 		return "NODE";
 	}
 
+	virtual std::string getVal() const { return "None"; }
+
+	void Print() const { printf("%s\n", getVal().c_str()); }
+
 	size_t getChildrenSize() { return children.size(); }
+
+
+	static bool checkMatch(LispNode * node, const std::string& str);
 
 	static LispNode * copy(LispNode * node);
 
 	static void display(LispNode * node, int n);
+
+
+
 
     std::vector<LispNode *> children;
 };
